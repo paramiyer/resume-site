@@ -73,7 +73,7 @@ p{margin:0 0 14px}
 .lead{font-size:17.5px; color:var(--text)}
 
 /* ── metric tiles ───────────────────────────────────── */
-.metrics{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+.metrics{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
 .metric{
   background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
   padding:20px 18px; text-align:left;
@@ -89,6 +89,7 @@ p{margin:0 0 14px}
 }
 .metric-src::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--dim)}
 .metric-src--live::before{background:var(--good)}
+.metric-src--product::before{background:var(--accent)}
 
 /* ── capability matrix ──────────────────────────────── */
 .caps{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
@@ -250,14 +251,24 @@ footer{
         <div class="metric-src metric-src--career">career</div>
       </div>
       <div class="metric">
+        <div class="metric-v" data-count="5">5</div>
+        <div class="metric-l">Products shipped to production</div>
+        <div class="metric-src metric-src--product">shipped</div>
+      </div>
+      <div class="metric">
         <div class="metric-v" data-count="8">8</div>
         <div class="metric-l">Open-source AI/ML projects</div>
-        <div class="metric-src metric-src--live">live from GitHub</div>
+        <div class="metric-src metric-src--live">live from API</div>
       </div>
       <div class="metric">
         <div class="metric-v" data-count="8">8</div>
         <div class="metric-l">Capability areas evidenced</div>
-        <div class="metric-src metric-src--live">live from GitHub</div>
+        <div class="metric-src metric-src--live">live from API</div>
+      </div>
+      <div class="metric">
+        <div class="metric-v" data-count="144">144</div>
+        <div class="metric-l">Indexed research citations</div>
+        <div class="metric-src metric-src--live">live from API</div>
       </div>
     </div>
     <!-- /GEN:METRICS -->
@@ -447,6 +458,8 @@ footer{
 <section aria-labelledby="products">
   <h2 id="products">Data Products</h2>
   <ul class="plain">
+    <li><strong>Prospect &amp; Deal-Signal Monitor</strong> <span class="tag-private">client engagement</span> — signal-driven prospecting and screening for corporate and investment banking relationship managers at a leading UAE bank. Scored signal feed, six-pillar entity scoring, grounded AI lead narratives and compliance screening. In production.</li>
+    <li><strong>Branch &amp; ATM Network Intelligence</strong> <span class="tag-private">client engagement</span> — geospatial siting, relocation and network planning across a UAE bank's branch and ATM estate, with per-branch catchment signals and a natural-language configuration assistant. In production.</li>
     <li><a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/zaintechsolutionsfz-llc1692862657242.ijaba?tab=overview" target="_blank" rel="noopener"><strong>Ijaba</strong></a> — an AI-driven platform for industrial IoT analytics and insights, listed on the Azure Marketplace.</li>
     <li><a href="https://www.boschaftermarket.com/gb/en/news/tips-and-technology/esitronic-lesson-4/" target="_blank" rel="noopener"><strong>Experience Based Repair</strong></a> — Bosch's intelligent repair recommendation system built using historical and expert repair knowledge.</li>
     <li><a href="https://aws.amazon.com/solutions/case-studies/Robert-Bosch-GmbH-Case-Study/" target="_blank" rel="noopener"><strong>Agile Field Quality Monitoring</strong></a> — cloud-based predictive system for detecting and analysing field failures across connected devices and vehicles.</li>

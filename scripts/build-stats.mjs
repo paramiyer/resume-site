@@ -172,12 +172,25 @@ const swatch = (lang) =>
 
 /* ── renderers ───────────────────────────────────────────────────────────── */
 
-function renderMetrics({ projectCount, languageCount, capabilityCount }) {
+/* Products shipped to production. Static because none of this is on GitHub:
+ * two are client-confidential bank systems and three are vendor/marketplace
+ * products. Kept in step with the Data Products section of index.html. */
+const PRODUCTS = [
+  'Prospect & Deal-Signal Monitor (UAE bank)',
+  'Branch & ATM Network Intelligence (UAE bank)',
+  'Ijaba — industrial IoT analytics (Azure Marketplace)',
+  'Experience Based Repair (Bosch)',
+  'Agile Field Quality Monitoring (Bosch)',
+];
+
+function renderMetrics({ projectCount, languageCount, capabilityCount, citationTotal }) {
   const tiles = [
-    { v: '20+',      l: 'Years leading AI &amp; data',  src: 'career' },
-    { v: 'AED 90M+', l: 'Enterprise value delivered',   src: 'career' },
-    { v: projectCount,   l: 'Open-source AI/ML projects', src: 'live' },
-    { v: capabilityCount, l: 'Capability areas evidenced', src: 'live' },
+    { v: '20+',            l: 'Years leading AI &amp; data',    src: 'career' },
+    { v: 'AED 90M+',       l: 'Enterprise value delivered',     src: 'career' },
+    { v: PRODUCTS.length,  l: 'Products shipped to production', src: 'product' },
+    { v: projectCount,     l: 'Open-source AI/ML projects',     src: 'live' },
+    { v: capabilityCount,  l: 'Capability areas evidenced',     src: 'live' },
+    { v: citationTotal,    l: 'Indexed research citations',     src: 'live' },
   ];
   return `<div class="metrics">
 ${tiles
@@ -185,7 +198,9 @@ ${tiles
     (t) => `      <div class="metric">
         <div class="metric-v" data-count="${typeof t.v === 'number' ? t.v : ''}">${t.v}</div>
         <div class="metric-l">${t.l}</div>
-        <div class="metric-src metric-src--${t.src}">${t.src === 'career' ? 'career' : 'live from GitHub'}</div>
+        <div class="metric-src metric-src--${t.src}">${
+          { career: 'career', product: 'shipped', live: 'live from API' }[t.src]
+        }</div>
       </div>`
   )
   .join('\n')}
@@ -430,6 +445,7 @@ async function main() {
     projectCount: publicCount,
     languageCount: Object.keys(totals).length,
     capabilityCount,
+    citationTotal: citations.total,
   }));
   html = inject(html, 'CAPABILITY', renderCapability(byCapability));
   html = inject(html, 'PROJECTS', renderProjects(items));
