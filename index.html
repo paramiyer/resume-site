@@ -1,161 +1,519 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Parameshwaran Iyer | AI & Data Science Leader</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            background: #fff;
-        }
-        header {
-            text-align: center;
-            padding: 30px 0;
-        }
-        h1 {
-            margin: 0;
-            font-size: 36px;
-        }
-        h2 {
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
-            margin-top: 40px;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            font-size: 12px;
-            color: #777;
-        }
-        a {
-            color: #3498db;
-        }
-        img.profile {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Parameshwaran Iyer | AI &amp; Data Science Leader</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Parameshwaran Iyer — AI and data leader with 20+ years across banking, mobility, aviation, manufacturing and the public sector.">
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --panel-2:#1c2129; --line:#272e38;
+  --text:#e6edf3; --muted:#9aa7b4; --dim:#7d8998;
+  --accent:#58a6ff; --accent-soft:rgba(88,166,255,.12);
+  --good:#3fb950;
+  --radius:14px;
+  --maxw:1080px;
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f6f8fa; --panel:#ffffff; --panel-2:#f2f5f8; --line:#dde3ea;
+    --text:#111820; --muted:#55616e; --dim:#6b7681;
+    --accent:#0969da; --accent-soft:rgba(9,105,218,.09);
+    --good:#1a7f37;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.65; font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px 72px}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,.chip:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+
+/* ── header ─────────────────────────────────────────── */
+header{padding:64px 0 40px; text-align:center}
+.avatar{
+  width:132px; height:132px; border-radius:50%; object-fit:cover;
+  border:3px solid var(--line); margin-bottom:20px;
+}
+h1{margin:0 0 6px; font-size:clamp(30px,5vw,44px); letter-spacing:-.02em; font-weight:700}
+.tagline{margin:0 0 18px; color:var(--muted); font-size:clamp(15px,2.2vw,19px); font-weight:500}
+.badge{
+  display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;
+  background:var(--accent-soft); border:1px solid var(--line);
+  color:var(--muted); border-radius:999px;
+  padding:7px 16px; font-size:12.5px; letter-spacing:.01em;
+}
+.badge strong{color:var(--text); font-weight:650}
+.badge .pulse{
+  width:7px; height:7px; border-radius:50%; background:var(--good);
+  box-shadow:0 0 0 0 rgba(63,185,80,.5); animation:pulse 2.6s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(63,185,80,.5)}
+  70%{box-shadow:0 0 0 7px rgba(63,185,80,0)}
+  100%{box-shadow:0 0 0 0 rgba(63,185,80,0)}
+}
+.refreshed{color:var(--dim)}
+
+/* ── sections ───────────────────────────────────────── */
+section{margin-top:52px}
+h2{
+  font-size:13px; text-transform:uppercase; letter-spacing:.13em;
+  color:var(--muted); font-weight:700; margin:0 0 20px;
+  padding-bottom:10px; border-bottom:1px solid var(--line);
+}
+h3{margin:0 0 6px; font-size:16px; font-weight:650; letter-spacing:-.01em}
+p{margin:0 0 14px}
+.lead{font-size:17.5px; color:var(--text)}
+
+/* ── metric tiles ───────────────────────────────────── */
+.metrics{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+.metric{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:20px 18px; text-align:left;
+}
+.metric-v{
+  font-size:clamp(24px,3.4vw,33px); font-weight:700; letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums; line-height:1.15; color:var(--text);
+}
+.metric-l{font-size:13.5px; color:var(--muted); margin-top:6px; line-height:1.4}
+.metric-src{
+  margin-top:12px; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--dim); display:inline-flex; align-items:center; gap:5px;
+}
+.metric-src::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--dim)}
+.metric-src--live::before{background:var(--good)}
+
+/* ── capability matrix ──────────────────────────────── */
+.caps{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+.cap{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:20px}
+.cap-name{color:var(--text)}
+.cap-proves{color:var(--muted); font-size:14px; margin:0 0 14px}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{
+  display:inline-flex; align-items:center; gap:7px;
+  background:var(--panel-2); border:1px solid var(--line); border-radius:999px;
+  padding:5px 12px; font-size:12.5px; color:var(--text);
+}
+a.chip:hover{border-color:var(--accent); text-decoration:none}
+.chip--private{color:var(--muted); border-style:dashed}
+.dot{width:9px; height:9px; border-radius:50%; display:inline-block; flex:none}
+.tag-private{
+  font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--dim); border:1px dashed var(--line); border-radius:999px; padding:1px 7px;
+}
+
+/* ── project cards ──────────────────────────────────── */
+.cards{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+.card{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:20px; position:relative;
+}
+.card--flagship{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+.card-t a{color:var(--text)}
+.card-t a:hover{color:var(--accent)}
+.card-d{color:var(--muted); font-size:14px; margin:6px 0 14px}
+.card-m{display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:12.5px; color:var(--dim)}
+.sep{opacity:.5}
+
+/* ── language bar ───────────────────────────────────── */
+.langbar{display:flex; height:12px; border-radius:999px; overflow:hidden; border:1px solid var(--line)}
+.seg{display:block; height:100%}
+.langkey{
+  list-style:none; padding:0; margin:16px 0 0;
+  display:flex; flex-wrap:wrap; gap:8px 22px; font-size:13px; color:var(--muted);
+}
+.langkey li{display:flex; align-items:center; gap:7px}
+.pct{color:var(--dim); font-variant-numeric:tabular-nums}
+
+/* ── lists ──────────────────────────────────────────── */
+.stack{list-style:none; padding:0; margin:0; display:grid; gap:12px}
+.stack li{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; font-size:15px;
+}
+.stack .who{color:var(--text); font-weight:650}
+.stack .what{color:var(--muted)}
+.impact{list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+.impact li{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 18px; font-size:14.5px; color:var(--muted);
+}
+.impact b{
+  display:block; color:var(--text); font-size:20px; font-weight:700;
+  letter-spacing:-.02em; font-variant-numeric:tabular-nums; margin-bottom:3px;
+}
+.tags{display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none}
+.tags li{
+  background:var(--panel); border:1px solid var(--line); border-radius:999px;
+  padding:7px 14px; font-size:13.5px; color:var(--muted);
+}
+.plain{padding-left:20px; margin:0; color:var(--muted)}
+.plain li{margin-bottom:8px}
+.plain strong{color:var(--text)}
+
+/* ── research ───────────────────────────────────────── */
+.figure{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:22px; text-align:center; margin-top:18px;
+}
+.figure img{max-width:min(520px,100%); height:auto; border-radius:8px}
+.figure figcaption{color:var(--dim); font-size:12.5px; margin-top:12px}
+
+/* ── footer ─────────────────────────────────────────── */
+footer{
+  margin-top:64px; padding-top:24px; border-top:1px solid var(--line);
+  text-align:center; color:var(--dim); font-size:12.5px;
+}
+
+/* ── responsive ─────────────────────────────────────── */
+@media (max-width:820px){
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .caps,.cards,.impact{grid-template-columns:1fr}
+}
+@media (max-width:460px){
+  .metrics{grid-template-columns:1fr}
+  header{padding:44px 0 28px}
+}
+
+/* ── motion / print ─────────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important; transition:none!important}
+}
+@media print{
+  :root{--bg:#fff;--panel:#fff;--panel-2:#fff;--line:#ccc;--text:#000;--muted:#333;--dim:#555;--accent:#000}
+  body{font-size:11pt}
+  .badge .pulse,.avatar{display:none}
+  .metric,.cap,.card,.stack li,.impact li,.figure{break-inside:avoid}
+  a[href^="http"]::after{content:" (" attr(href) ")"; font-size:8pt; color:#555}
+  section{margin-top:22px}
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-<img src="ParamProfile.png" class="profile">
-<p style="font-size: 28px; font-weight: 600; margin-top: 10px;">Parameshwaran Iyer</p>
-            
-            
-            
-        </header>
+<div class="wrap">
 
-        
-        <section>
-            <h2>Professional Summary</h2>
-            <p>
-                I'm a seasoned AI and data science leader with 20+ years of experience across manufacturing, engineering, supply chain, automotive, telecom, and the public sector.
-                I've built and led high-impact teams, scaled AI programs, and delivered enterprise value through data-driven innovation at companies like Bosch, GM, Careem, ADQ, and ZainTECH.
-            </p>
-        </section>
+<header>
+  <img src="ParamProfile.png" class="avatar" alt="Parameshwaran Iyer">
+  <h1>Parameshwaran Iyer</h1>
+  <p class="tagline">AI &amp; Data Science Leader — Strategy, Platforms &amp; Enablement</p>
+  <div class="badge">
+    <span class="pulse" aria-hidden="true"></span>
+    <span><strong>Managed via Claude</strong> · updated weekly via a routine task</span>
+    <span aria-hidden="true">·</span>
+    <!-- GEN:REFRESHED -->
+    <span class="refreshed">last refresh 20 Aug 2026</span>
+    <!-- /GEN:REFRESHED -->
+  </div>
+</header>
 
-        <section>
-            <h2>Education</h2>
-            <ul>
-                <li>Master’s in Industrial Engineering – Penn State University</li>
-                <li>Bachelor’s in Mechanical Engineering – University of Mumbai</li>
-            </ul>
-        </section>
+<main>
 
-        
-
-        <section>
-            <h2>Career Highlights</h2>
-            <ul>
-                <li><strong>ZainTECH:</strong> Principal Data Scientist – AI & Data Strategy, Churn modeling, Customer Value Modeling, network analytics</li>
-                <li><strong>ADQ – Next50:</strong> Principal Data Scientist - AI & Data Strategy for Public Sector Transformation, Tech stack for App Analytics, Predictive Maintenance for Utilities </li>
-                <li><strong>Careem (Uber):</strong> Lead Data Scientist – Driver Behavioral & Value modeling, Driver Incentive Optimization</li>
-                <li><strong>Bosch Center for AI:</strong> Sr Principal Data Scientist – Diagnostics & Predictive systems for digital quality, Recommender Systems for Vehicle Repair, Predictive Maintenance & KPI Improvements for Manufacturing using ML/DS</li>
-                <li><strong>General Motors:</strong> Sr Research Scientist - Customer Voice, Planning-Finance-Pricing Strategy, Engineering & Manufacturing Analytics</li>
-            </ul>
-        </section>
-
-<section>
-    <h2>Data Products</h2>
-    <ul>
-        <li><a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/zaintechsolutionsfz-llc1692862657242.ijaba?tab=overview" target="_blank">Ijaba</a> – An AI-driven platform for industrial IoT analytics and insights, listed on the Azure Marketplace.</li>
-        <li><a href="https://www.boschaftermarket.com/gb/en/news/tips-and-technology/esitronic-lesson-4/" target="_blank">Experience Based Repair</a> – Bosch's intelligent repair recommendation system built using historical and expert repair knowledge.</li>
-        <li><a href="https://aws.amazon.com/solutions/case-studies/Robert-Bosch-GmbH-Case-Study/" target="_blank">Agile Field Quality Monitoring</a> – Cloud-based predictive system for detecting and analyzing field failures across connected devices and vehicles.</li>
-    </ul>
-</section>
-
-
-        <section>
-            <h2>Core Expertise</h2>
-            <ul>
-                <li>Deep Expertise in AI, ML & DS Algorithms</li>
-                <li>AI & Data Strategy & Program Management</li>
-                <li>Digital Transformation Leadership</li>
-                <li>Data Science Team Building & Mentoring</li>
-                <li>SME AI Enablement & Consulting</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Selected GitHub Projects</h2>
-            <ul>
-                <li><a href="https://github.com/paramiyer/pii-schema-classifier">AI-Schema-Classifier</a> – Built an open-source tool for automated PII/data DAMA classification audits using LLMs, delivering over 94% cost savings compared to manual reviews.</li>
-                <li><a href="https://github.com/paramiyer/multi-agent-enterprise-reporting-PMO-planner/">Multi-Agent AI PMO Planner</a> – Built a multi-agent orchestration system that generates project plans across 6 tech functions, delivering 4 delivery options with different timelines & costs.</li>
-                <li><a href="https://github.com/paramiyer/AI_Car_Diagnosis_Assistant">AI Car Diagnosis & Repair Assistant</a> – Based on symptoms provided by the user the systems performs a constrained domain search on Perplextiy & returns inferences from OpenAI. UX built on Streamlit.</li>
-                <li><a href="https://github.com/paramiyer/Time_series_LSTM_Autoencoder">LSTM Autoencoder for Time Series Modeling</a> – Deep learning methods for generating synthetic data, anomaly detection, and missing value imputation.
-                This repository explores the use of LSTM Autoencoders for robust time series imputation and outlier correction, applied to both temperature and financial datasets.</li>
-                <li><a href="https://github.com/paramiyer/Semantic_Segmentation">Semantic_Segmentation</a> – Implements semantic segmentation techniques using deep learning for image analysis tasks.</li>
-                <li><a href="https://github.com/paramiyer/Pharma_Demand-Forecasting-Optimization-Pipeline">Supply Chain Engagement Optimization-Pipeline</a> – A machine learning and optimization pipeline for analyzing CRM activity data and maximizing prescription outcomes through constrained resource allocation. Combines SHAP-based explainability with Google OR-Tools for rep-level engagement planning.</li>
-                <li><a href="https://github.com/paramiyer/Linkedin-Job-Scrapper">Linkedin-Job-Scrapper</a> – A tool to scrape job postings from LinkedIn for data analysis and job market research.</li>
-                <li><a href="https://github.com/paramiyer/Ride-Hailing">Ride-Hailing Customer Satisfaction</a> – Analyzes ride-hailing data to extract insights and improve service efficiency.</li>
-            </ul>
-        </section>
-
-
-
-
-        <section>
-            <h2>Research & Innovation</h2>
-            <p>
-                Throughout my career, I’ve blended deep domain knowledge with AI to solve complex industrial problems. My contributions in academia have been in reputed journals and I have over 200+ citations.
-            </p>
-
-<h3 style="text-align: center; font-weight: 500; margin-top: 40px;">Citation Trends <span style="font-size: 14px;">(as of May 2025)</span></h3>
-<img src="citations.png" alt="Citation Graph" style="margin-top:10px; max-width:48%; display: block; margin-left: auto; margin-right: auto;">
-<p style="text-align: center; font-size: 14px;">
-    Source: <a href="https://scholar.google.com/citations?user=4xdbJC8AAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a>
-</p>
-
-</section>
-
-<section>
-<h2>Contact</h2>
-            <p>Email: <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a></p>
-        </section>
-
-        <footer>
-            <p>This page was created as a professional snapshot using HTML. Last updated 2025.</p>
-        </footer>
+<section aria-labelledby="glance">
+  <h2 id="glance">At a Glance</h2>
+  <!-- GEN:METRICS -->
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-v" data-count="">20+</div>
+        <div class="metric-l">Years leading AI &amp; data</div>
+        <div class="metric-src metric-src--career">career</div>
+      </div>
+      <div class="metric">
+        <div class="metric-v" data-count="">AED 90M+</div>
+        <div class="metric-l">Enterprise value delivered</div>
+        <div class="metric-src metric-src--career">career</div>
+      </div>
+      <div class="metric">
+        <div class="metric-v" data-count="8">8</div>
+        <div class="metric-l">Open-source AI/ML projects</div>
+        <div class="metric-src metric-src--live">live from GitHub</div>
+      </div>
+      <div class="metric">
+        <div class="metric-v" data-count="8">8</div>
+        <div class="metric-l">Capability areas evidenced</div>
+        <div class="metric-src metric-src--live">live from GitHub</div>
+      </div>
     </div>
+    <!-- /GEN:METRICS -->
+</section>
+
+<section aria-labelledby="summary">
+  <h2 id="summary">Professional Summary</h2>
+  <p class="lead">
+    AI and data leader with 20+ years turning AI ambition into delivered business value across
+    banking and financial services, mobility, aviation, manufacturing, telecom and the public sector.
+  </p>
+  <p>
+    I build the operating model that makes AI scale — shared platforms, clear standards and
+    responsible-AI controls that let business teams own delivery rather than queue behind a central
+    function. Equally at home setting AI strategy with executives and working in the codebase:
+    the projects below are my own.
+  </p>
+</section>
+
+<section aria-labelledby="impact">
+  <h2 id="impact">Selected Impact</h2>
+  <ul class="impact">
+    <li><b>AED 50M</b>Annual value from telco data monetisation and AI strategy — use-case portfolio and commercialisation</li>
+    <li><b>AED 40M</b>Across three AI optimisation use cases for Abu Dhabi Aviation Group</li>
+    <li><b>10% → 5%</b>Driver incentive spend as a share of GMV at Careem, measured by A/B testing</li>
+    <li><b>EUR 8M</b>Savings at Bosch across manufacturing, engineering and data-product initiatives</li>
+    <li><b>2 products</b>Enterprise AI products taken end-to-end into production for a leading UAE bank</li>
+    <li><b>40 people</b>Global AI function founded and scaled across Europe, UK and Asia</li>
+  </ul>
+</section>
+
+<section aria-labelledby="capability">
+  <h2 id="capability">AI Capability — Evidenced in Code</h2>
+  <p>Each capability links to the projects that demonstrate it, rather than asserting a skill list.</p>
+  <!-- GEN:CAPABILITY -->
+    <div class="caps">
+      <div class="cap">
+        <h3 class="cap-name">LLMs &amp; Applied GenAI</h3>
+        <p class="cap-proves">Production LLM systems: grounding, structured extraction, cost control</p>
+        <div class="chips">
+            <a class="chip" href="https://github.com/paramiyer/pii-schema-classifier" target="_blank" rel="noopener"><span class="dot" style="background:#3572A5" aria-hidden="true"></span>AI Schema Classifier</a>
+            <a class="chip" href="https://github.com/paramiyer/multi-agent-enterprise-reporting-PMO-planner" target="_blank" rel="noopener"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>Multi-Agent AI PMO Planner</a>
+            <a class="chip" href="https://github.com/paramiyer/AI_Car_Diagnosis_Assistant" target="_blank" rel="noopener"><span class="dot" style="background:#3572A5" aria-hidden="true"></span>AI Car Diagnosis &amp; Repair Assistant</a>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Multi-Agent Orchestration</h3>
+        <p class="cap-proves">Decomposing work across specialised agents with an orchestration layer</p>
+        <div class="chips">
+            <a class="chip" href="https://github.com/paramiyer/multi-agent-enterprise-reporting-PMO-planner" target="_blank" rel="noopener"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>Multi-Agent AI PMO Planner</a>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Time Series &amp; Forecasting</h3>
+        <p class="cap-proves">Sequence models for forecasting, anomaly detection and imputation</p>
+        <div class="chips">
+            <a class="chip" href="https://github.com/paramiyer/Time_series_LSTM_Autoencoder" target="_blank" rel="noopener"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>LSTM Autoencoder for Time Series</a>
+            <a class="chip" href="https://github.com/paramiyer/Pharma_Demand-Forecasting-Optimization-Pipeline" target="_blank" rel="noopener"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>Supply Chain Engagement Optimisation</a>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Optimisation &amp; OR</h3>
+        <p class="cap-proves">Constrained allocation under real business limits, not just prediction</p>
+        <div class="chips">
+            <a class="chip" href="https://github.com/paramiyer/Pharma_Demand-Forecasting-Optimization-Pipeline" target="_blank" rel="noopener"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>Supply Chain Engagement Optimisation</a>
+            <a class="chip" href="https://github.com/paramiyer/Ride-Hailing" target="_blank" rel="noopener"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>Ride-Hailing Customer Satisfaction</a>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Computer Vision</h3>
+        <p class="cap-proves">Pixel-level scene understanding with deep networks</p>
+        <div class="chips">
+            <a class="chip" href="https://github.com/paramiyer/Semantic_Segmentation" target="_blank" rel="noopener"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>Semantic Segmentation</a>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Data Governance &amp; PII</h3>
+        <p class="cap-proves">Automated classification of sensitive data estates at audit scale</p>
+        <div class="chips">
+            <a class="chip" href="https://github.com/paramiyer/pii-schema-classifier" target="_blank" rel="noopener"><span class="dot" style="background:#3572A5" aria-hidden="true"></span>AI Schema Classifier</a>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Agent Tooling &amp; Internal Products</h3>
+        <p class="cap-proves">End-to-end internal tools: MCP integrations, scheduling, analytics surfaces</p>
+        <div class="chips">
+            <span class="chip chip--private"><span class="dot" style="background:#3178c6" aria-hidden="true"></span>myBob — Local-First Analytics Dashboard</span>
+            <span class="chip chip--private"><span class="dot" style="background:#f1e05a" aria-hidden="true"></span>CoachSlot — Booking &amp; Billing Mini-App</span>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Data Acquisition</h3>
+        <p class="cap-proves">Building the collection layer that feeds the models</p>
+        <div class="chips">
+            <span class="chip chip--private"><span class="dot" style="background:#3178c6" aria-hidden="true"></span>myBob — Local-First Analytics Dashboard</span>
+            <a class="chip" href="https://github.com/paramiyer/Linkedin-Job-Scrapper" target="_blank" rel="noopener"><span class="dot" style="background:#3572A5" aria-hidden="true"></span>LinkedIn Job Scraper</a>
+        </div>
+      </div>
+    </div>
+    <!-- /GEN:CAPABILITY -->
+</section>
+
+<section aria-labelledby="projects">
+  <h2 id="projects">Projects</h2>
+  <!-- GEN:PROJECTS -->
+    <div class="cards">
+      <article class="card card--flagship">
+        <h3 class="card-t"><a href="https://github.com/paramiyer/pii-schema-classifier" target="_blank" rel="noopener">AI Schema Classifier</a></h3>
+        <p class="card-d">Open-source tool for automated PII and DAMA data-classification audits using LLMs, delivering over 94% cost saving against manual review.</p>
+        <div class="card-m"><span class="dot" style="background:#3572A5" aria-hidden="true"></span><span>Python</span><span class="sep">·</span><span>updated 2025</span></div>
+      </article>
+      <article class="card card--flagship">
+        <h3 class="card-t"><a href="https://github.com/paramiyer/multi-agent-enterprise-reporting-PMO-planner" target="_blank" rel="noopener">Multi-Agent AI PMO Planner</a></h3>
+        <p class="card-d">Multi-agent orchestration system that generates project plans across six technology functions, producing four delivery options with different timelines and costs.</p>
+        <div class="card-m"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span><span>Jupyter Notebook</span><span class="sep">·</span><span>updated 2025</span></div>
+      </article>
+      <article class="card card--flagship">
+        <h3 class="card-t"><a href="https://github.com/paramiyer/Time_series_LSTM_Autoencoder" target="_blank" rel="noopener">LSTM Autoencoder for Time Series</a></h3>
+        <p class="card-d">Deep learning for synthetic data generation, anomaly detection and missing-value imputation — applied to temperature and financial series.</p>
+        <div class="card-m"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span><span>Jupyter Notebook</span><span class="sep">·</span><span>updated 2025</span></div>
+      </article>
+      <article class="card card--flagship">
+        <h3 class="card-t"><a href="https://github.com/paramiyer/Pharma_Demand-Forecasting-Optimization-Pipeline" target="_blank" rel="noopener">Supply Chain Engagement Optimisation</a></h3>
+        <p class="card-d">ML and optimisation pipeline over CRM activity data, combining SHAP-based explainability with Google OR-Tools for constrained resource allocation.</p>
+        <div class="card-m"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span><span>Jupyter Notebook</span><span class="sep">·</span><span>updated 2025</span></div>
+      </article>
+      <article class="card card--flagship">
+        <h3 class="card-t">myBob — Local-First Analytics Dashboard</h3>
+        <p class="card-d">Personal analytics and insight dashboard over an MCP server, running entirely locally — no central hosting. TypeScript monorepo with a browser SPA and its own API layer.</p>
+        <div class="card-m"><span class="dot" style="background:#3178c6" aria-hidden="true"></span><span>TypeScript</span><span class="sep">·</span><span>2026</span><span class="sep">·</span><span class="tag-private">private repo</span></div>
+      </article>
+      <article class="card">
+        <h3 class="card-t"><a href="https://github.com/paramiyer/AI_Car_Diagnosis_Assistant" target="_blank" rel="noopener">AI Car Diagnosis &amp; Repair Assistant</a></h3>
+        <p class="card-d">From user-described symptoms, runs a constrained-domain search and returns grounded inferences from an LLM. Streamlit front end.</p>
+        <div class="card-m"><span class="dot" style="background:#3572A5" aria-hidden="true"></span><span>Python</span><span class="sep">·</span><span>updated 2025</span></div>
+      </article>
+      <article class="card">
+        <h3 class="card-t"><a href="https://github.com/paramiyer/Ride-Hailing" target="_blank" rel="noopener">Ride-Hailing Customer Satisfaction</a></h3>
+        <p class="card-d">Analyses ride-hailing marketplace data to extract satisfaction drivers and improve service efficiency.</p>
+        <div class="card-m"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span><span>Jupyter Notebook</span><span class="sep">·</span><span>updated 2025</span></div>
+      </article>
+      <article class="card">
+        <h3 class="card-t"><a href="https://github.com/paramiyer/Linkedin-Job-Scrapper" target="_blank" rel="noopener">LinkedIn Job Scraper</a></h3>
+        <p class="card-d">Collects job postings for labour-market and skills-demand analysis.</p>
+        <div class="card-m"><span class="dot" style="background:#3572A5" aria-hidden="true"></span><span>Python</span><span class="sep">·</span><span>updated 2025</span></div>
+      </article>
+      <article class="card">
+        <h3 class="card-t"><a href="https://github.com/paramiyer/Semantic_Segmentation" target="_blank" rel="noopener">Semantic Segmentation</a></h3>
+        <p class="card-d">Deep-learning semantic segmentation for pixel-level image analysis.</p>
+        <div class="card-m"><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span><span>Jupyter Notebook</span><span class="sep">·</span><span>updated 2025</span></div>
+      </article>
+      <article class="card">
+        <h3 class="card-t">CoachSlot — Booking &amp; Billing Mini-App</h3>
+        <p class="card-d">Google Workspace mini-app for coach-owned booking: slot management, calendar integration, tokenised email confirmations and session-based invoicing.</p>
+        <div class="card-m"><span class="dot" style="background:#f1e05a" aria-hidden="true"></span><span>JavaScript</span><span class="sep">·</span><span>2026</span><span class="sep">·</span><span class="tag-private">private repo</span></div>
+      </article>
+    </div>
+    <!-- /GEN:PROJECTS -->
+</section>
+
+<section aria-labelledby="langs">
+  <h2 id="langs">Language Mix</h2>
+  <!-- GEN:LANGUAGES -->
+    <div class="langbar" role="img" aria-label="Primary language across 10 projects"><span class="seg" style="width:50.00%;background:#DA5B0B" title="Jupyter Notebook 50.0%"></span><span class="seg" style="width:30.00%;background:#3572A5" title="Python 30.0%"></span><span class="seg" style="width:10.00%;background:#3178c6" title="TypeScript 10.0%"></span><span class="seg" style="width:10.00%;background:#f1e05a" title="JavaScript 10.0%"></span></div>
+      <ul class="langkey">
+        <li><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>Jupyter Notebook <span class="pct">5 projects</span></li>
+        <li><span class="dot" style="background:#3572A5" aria-hidden="true"></span>Python <span class="pct">3 projects</span></li>
+        <li><span class="dot" style="background:#3178c6" aria-hidden="true"></span>TypeScript <span class="pct">1 project</span></li>
+        <li><span class="dot" style="background:#f1e05a" aria-hidden="true"></span>JavaScript <span class="pct">1 project</span></li>
+      </ul>
+    <!-- /GEN:LANGUAGES -->
+</section>
+
+<section aria-labelledby="career">
+  <h2 id="career">Career Highlights</h2>
+  <ul class="stack">
+    <li><span class="who">Whiteshield:</span> <span class="what">AI Consultant — two enterprise AI products end-to-end for a leading UAE bank: prospect and deal-signal monitoring for corporate and investment banking, and branch and ATM network planning. Built the governed data platform, delivery standards and responsible-AI controls beneath them.</span></li>
+    <li><span class="who">Contango Management Consultancy:</span> <span class="what">Associate Director, Data, Digital &amp; Technology — three AI optimisation use cases for Abu Dhabi Aviation Group: spare-parts inventory, MRO manpower allocation, and bay and hangar planning.</span></li>
+    <li><span class="who">ZainTECH:</span> <span class="what">Principal Data Scientist – AI &amp; Data Strategy, Churn modeling, Customer Value Modeling, network analytics</span></li>
+    <li><span class="who">ADQ – Next50:</span> <span class="what">Principal Data Scientist - AI &amp; Data Strategy for Public Sector Transformation, Tech stack for App Analytics, Predictive Maintenance for Utilities</span></li>
+    <li><span class="who">Careem (Uber):</span> <span class="what">Lead Data Scientist – Driver Behavioral &amp; Value modeling, Driver Incentive Optimization</span></li>
+    <li><span class="who">Bosch Center for AI:</span> <span class="what">Sr Principal Data Scientist – Diagnostics &amp; Predictive systems for digital quality, Recommender Systems for Vehicle Repair, Predictive Maintenance &amp; KPI Improvements for Manufacturing using ML/DS</span></li>
+    <li><span class="who">General Motors:</span> <span class="what">Sr Research Scientist - Customer Voice, Planning-Finance-Pricing Strategy, Engineering &amp; Manufacturing Analytics</span></li>
+  </ul>
+</section>
+
+<section aria-labelledby="products">
+  <h2 id="products">Data Products</h2>
+  <ul class="plain">
+    <li><a href="https://azuremarketplace.microsoft.com/en-us/marketplace/apps/zaintechsolutionsfz-llc1692862657242.ijaba?tab=overview" target="_blank" rel="noopener"><strong>Ijaba</strong></a> — an AI-driven platform for industrial IoT analytics and insights, listed on the Azure Marketplace.</li>
+    <li><a href="https://www.boschaftermarket.com/gb/en/news/tips-and-technology/esitronic-lesson-4/" target="_blank" rel="noopener"><strong>Experience Based Repair</strong></a> — Bosch's intelligent repair recommendation system built using historical and expert repair knowledge.</li>
+    <li><a href="https://aws.amazon.com/solutions/case-studies/Robert-Bosch-GmbH-Case-Study/" target="_blank" rel="noopener"><strong>Agile Field Quality Monitoring</strong></a> — cloud-based predictive system for detecting and analysing field failures across connected devices and vehicles.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="expertise">
+  <h2 id="expertise">Core Expertise</h2>
+  <ul class="tags">
+    <li>Deep Expertise in AI, ML &amp; DS Algorithms</li>
+    <li>AI &amp; Data Strategy &amp; Program Management</li>
+    <li>Digital Transformation Leadership</li>
+    <li>Data Science Team Building &amp; Mentoring</li>
+    <li>SME AI Enablement &amp; Consulting</li>
+    <li>Enterprise AI Operating Models</li>
+    <li>Reusable AI Platforms &amp; Delivery Standards</li>
+    <li>Responsible AI &amp; Model-Risk Governance</li>
+    <li>Databricks · Lakehouse · Unity Catalog</li>
+    <li>LLMs · RAG · Agentic Workflows · Evaluation</li>
+  </ul>
+</section>
+
+<section aria-labelledby="education">
+  <h2 id="education">Education</h2>
+  <ul class="stack">
+    <li><span class="who">MSc, Industrial Engineering</span> <span class="what">— Penn State University</span></li>
+    <li><span class="who">BE, Mechanical Engineering</span> <span class="what">— University of Mumbai</span></li>
+  </ul>
+</section>
+
+<section aria-labelledby="research">
+  <h2 id="research">Research &amp; Innovation</h2>
+  <p>
+    Throughout my career I've blended deep domain knowledge with AI to solve complex industrial
+    problems. My academic contributions appear in reputed journals, with over 200 citations.
+  </p>
+  <figure class="figure">
+    <img src="citations.png" alt="Citation trend chart from Google Scholar">
+    <figcaption>
+      Citation trends (as of May 2025) · Source:
+      <a href="https://scholar.google.com/citations?user=4xdbJC8AAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener">Google Scholar</a>
+    </figcaption>
+  </figure>
+</section>
+
+<section aria-labelledby="contact">
+  <h2 id="contact">Contact</h2>
+  <p>
+    <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a> ·
+    <a href="https://www.linkedin.com/in/parameshwaran-iyer-790b2131/" target="_blank" rel="noopener">LinkedIn</a> ·
+    <a href="https://github.com/paramiyer" target="_blank" rel="noopener">GitHub</a>
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <p>Built as a static page, no trackers. Project data refreshed weekly from the GitHub API by a scheduled routine.</p>
+</footer>
+
+</div>
+
+<script>
+// Count up the numeric metric tiles once they scroll into view.
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('.metric-v[data-count]:not([data-count=""])');
+  if (!targets.length || reduce || !('IntersectionObserver' in window)) return;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      io.unobserve(el);
+      var end = parseInt(el.dataset.count, 10);
+      if (!isFinite(end)) return;
+      var start = performance.now(), dur = 900;
+      (function step(now) {
+        var p = Math.min((now - start) / dur, 1);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      })(start);
+    });
+  }, { threshold: 0.4 });
+
+  targets.forEach(function (t) { io.observe(t); });
+})();
+</script>
 </body>
 </html>
