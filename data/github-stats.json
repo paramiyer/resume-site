@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T11:38:40.485Z",
+  "generated_at": "2026-08-20T11:52:26.226Z",
   "refreshed_label": "20 Aug 2026",
   "project_count": 10,
   "public_project_count": 8,
@@ -9,6 +9,28 @@
     "Jupyter Notebook": 5,
     "TypeScript": 1,
     "JavaScript": 1
+  },
+  "citations": {
+    "perYear": {
+      "2012": 1,
+      "2013": 9,
+      "2014": 5,
+      "2015": 7,
+      "2016": 9,
+      "2017": 9,
+      "2018": 4,
+      "2019": 7,
+      "2020": 22,
+      "2021": 10,
+      "2022": 13,
+      "2023": 13,
+      "2024": 4,
+      "2025": 6,
+      "2026": 4
+    },
+    "total": 144,
+    "works": 8,
+    "hIndex": 5
   },
   "projects": [
     {

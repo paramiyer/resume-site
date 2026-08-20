@@ -124,6 +124,13 @@ const LANG_COLOUR = {
 
 const EXCLUDE = new Set(['resume-site', 'pythonSamples']);
 
+/* OpenAlex author IDs. Param's record is split across two — a General Motors
+ * one and a Robert Bosch one — so both are queried and merged. OpenAlex is CC0
+ * and needs no key; Google Scholar has no public API and scraping it from a CI
+ * runner gets CAPTCHA'd, which is why this is the source for the chart. */
+const OPENALEX_AUTHORS = ['A5045119494', 'A5080782322'];
+const OPENALEX_MAILTO = 'paramiyer@gmail.com'; // polite-pool contact, already public on this page
+
 /* ── fetch helpers ───────────────────────────────────────────────────────── */
 
 const token = process.env.GITHUB_TOKEN || '';
@@ -257,6 +264,69 @@ function renderLanguages(totals) {
       </ul>`;
 }
 
+/**
+ * Citation trend, drawn as inline SVG so it themes with the page and pulls in
+ * nothing third-party. Bars are citations RECEIVED in each year, summed across
+ * every work — the same shape as the Google Scholar chart this replaces.
+ */
+function renderCitations({ perYear, total, works, hIndex }) {
+  const years = Object.keys(perYear).map(Number).sort((a, b) => a - b);
+  if (!years.length) throw new Error('OpenAlex returned no citation years');
+
+  const W = 720, H = 190, PAD_L = 34, PAD_B = 26, PAD_T = 14;
+  const max = Math.max(...years.map((y) => perYear[y]));
+  const plotW = W - PAD_L - 10, plotH = H - PAD_B - PAD_T;
+  const slot = plotW / years.length;
+  const bw = Math.min(30, slot * 0.62);
+
+  const bars = years
+    .map((y, i) => {
+      const v = perYear[y];
+      const h = max ? (v / max) * plotH : 0;
+      const x = PAD_L + i * slot + (slot - bw) / 2;
+      const yy = PAD_T + (plotH - h);
+      return `<g><title>${y}: ${v} citation${v === 1 ? '' : 's'}</title>` +
+        `<rect class="cbar" x="${x.toFixed(1)}" y="${yy.toFixed(1)}" width="${bw.toFixed(1)}" ` +
+        `height="${Math.max(h, 1).toFixed(1)}" rx="2"/></g>`;
+    })
+    .join('');
+
+  // Label every other year so they never collide.
+  const labels = years
+    .map((y, i) =>
+      i % 2 === 0 || i === years.length - 1
+        ? `<text class="cax" x="${(PAD_L + i * slot + slot / 2).toFixed(1)}" y="${H - 8}" text-anchor="middle">${String(y).slice(2)}</text>`
+        : ''
+    )
+    .join('');
+
+  const gridY = PAD_T + plotH;
+  const summary =
+    `${total} citations across ${works} works, h-index ${hIndex}. ` +
+    `Peak ${max} citations in ${years.find((y) => perYear[y] === max)}.`;
+
+  return `<div class="citebox">
+      <div class="citestats">
+        <span><b>${total}</b> indexed citations</span>
+        <span><b>${works}</b> works</span>
+        <span><b>${hIndex}</b> h-index</span>
+      </div>
+      <svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Citations received per year. ${esc(summary)}">
+        <line class="cgrid" x1="${PAD_L}" y1="${gridY}" x2="${W - 10}" y2="${gridY}"/>
+        <text class="cax" x="${PAD_L - 8}" y="${PAD_T + 8}" text-anchor="end">${max}</text>
+        <text class="cax" x="${PAD_L - 8}" y="${gridY}" text-anchor="end">0</text>
+        ${bars}
+        ${labels}
+      </svg>
+      <p class="citenote">
+        Citations received per year · source
+        <a href="https://openalex.org/A5045119494" target="_blank" rel="noopener">OpenAlex</a>, refreshed weekly.
+        <a href="https://scholar.google.com/citations?user=4xdbJC8AAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener">Google Scholar</a>
+        reports 200+, as it also indexes theses, preprints and other grey literature.
+      </p>
+    </div>`;
+}
+
 /* ── injection ───────────────────────────────────────────────────────────── */
 
 function inject(html, marker, body) {
@@ -314,6 +384,29 @@ async function main() {
   const capabilityCount = CAPABILITIES.filter((c) => byCapability[c.id]?.length).length;
   const publicCount = items.filter((i) => i.url).length;
 
+  /* ── OpenAlex citations ───────────────────────────────────────────────── */
+  const oaUrl =
+    `https://api.openalex.org/works?filter=author.id:${OPENALEX_AUTHORS.join('|')}` +
+    `&per-page=100&select=publication_year,cited_by_count,counts_by_year&mailto=${OPENALEX_MAILTO}`;
+  const oaRes = await fetch(oaUrl, { headers: { 'User-Agent': `resume-site (${OPENALEX_MAILTO})` } });
+  if (!oaRes.ok) throw new Error(`OpenAlex ${oaRes.status} ${oaRes.statusText}`);
+  const oa = await oaRes.json();
+
+  const perYear = {};
+  let citeTotal = 0;
+  const citeCounts = [];
+  for (const w of oa.results) {
+    citeTotal += w.cited_by_count;
+    citeCounts.push(w.cited_by_count);
+    for (const c of w.counts_by_year || []) {
+      perYear[c.year] = (perYear[c.year] || 0) + c.cited_by_count;
+    }
+  }
+  // h-index: largest h such that h works have >= h citations each.
+  citeCounts.sort((a, b) => b - a);
+  const hIndex = citeCounts.reduce((h, c, i) => (c >= i + 1 ? i + 1 : h), 0);
+  const citations = { perYear, total: citeTotal, works: oa.results.length, hIndex };
+
   const refreshed = new Intl.DateTimeFormat('en-GB', {
     day: 'numeric', month: 'short', year: 'numeric', timeZone: TZ,
   }).format(new Date());
@@ -325,6 +418,7 @@ async function main() {
     public_project_count: publicCount,
     capability_count: capabilityCount,
     languages: totals,
+    citations,
     projects: items.map(({ name, url, language, pushed_at, caps }) => ({
       name, url, language, pushed_at, caps,
     })),
@@ -340,12 +434,14 @@ async function main() {
   html = inject(html, 'CAPABILITY', renderCapability(byCapability));
   html = inject(html, 'PROJECTS', renderProjects(items));
   html = inject(html, 'LANGUAGES', renderLanguages(totals));
+  html = inject(html, 'CITATIONS', renderCitations(citations));
   html = inject(html, 'REFRESHED', `<span class="refreshed">last refresh ${refreshed}</span>`);
   await writeFile(join(ROOT, 'index.html'), html);
 
   console.log(
     `ok — ${items.length} projects (${publicCount} public), ${capabilityCount} capability areas, ` +
-    `${Object.keys(totals).length} languages, refreshed ${refreshed}`
+    `${Object.keys(totals).length} languages, ${citations.total} citations across ` +
+    `${citations.works} works (h=${citations.hIndex}), refreshed ${refreshed}`
   );
 }
 
