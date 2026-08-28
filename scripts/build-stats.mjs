@@ -414,6 +414,16 @@ function renderCitations({ perYear, total, works, hIndex }) {
  * under client confidentiality.
  */
 async function fetchActivity() {
+  /* A locally-counted snapshot beats the API: it sees private repos without any
+   * credential. Used when present and fresher than the window it describes. */
+  try {
+    const raw = await readFile(join(ROOT, 'data', 'activity-local.json'), 'utf8');
+    const local = JSON.parse(raw);
+    const ageDays = (Date.now() - new Date(local.generated_at)) / 86400000;
+    if (ageDays <= local.days) return local;
+    console.warn(`  ! activity-local.json is ${ageDays.toFixed(1)}d old — falling back to the API`);
+  } catch { /* no local snapshot; use the API */ }
+
   const since = new Date(Date.now() - ACTIVITY_DAYS * 86400000).toISOString();
   const sinceDay = since.slice(0, 10);
 
@@ -444,7 +454,9 @@ async function fetchActivity() {
   return {
     days: ACTIVITY_DAYS,
     commits, repos: touched, prs: pr.total_count || 0, runs,
-    scope: HAS_PAT ? 'all repositories' : 'public repositories only',
+    scope: HAS_PAT
+      ? 'the GitHub API across all repositories'
+      : 'the GitHub API across public repositories only',
   };
 }
 
@@ -453,14 +465,15 @@ function renderActivity(a, refreshed) {
     [a.commits, a.commits === 1 ? 'commit' : 'commits'],
     [a.repos, a.repos === 1 ? 'repository' : 'repositories'],
     [a.prs, a.prs === 1 ? 'pull request' : 'pull requests'],
-    [a.runs, a.runs === 1 ? 'pipeline run' : 'pipeline runs'],
+    // Pipeline runs only exist on the API path; omitted rather than shown as 0.
+    ...(a.runs === undefined ? [] : [[a.runs, a.runs === 1 ? 'pipeline run' : 'pipeline runs']]),
   ]
     .map(([n, l]) => `<span><b>${n}</b> ${l}</span>`)
     .join('<span class="sep" aria-hidden="true">·</span>');
 
   return `<div class="activity">
       <p class="act-line">${bits}</p>
-      <p class="act-note">Rolling ${a.days} days to ${esc(refreshed)}, counted from the GitHub API across ${esc(a.scope)}. Repository and client names are omitted by design.</p>
+      <p class="act-note">Rolling ${a.days} days to ${esc(refreshed)}, counted from ${esc(a.scope)}. Repository and client names are omitted by design.</p>
     </div>`;
 }
 
@@ -585,7 +598,9 @@ async function main() {
     `ok — ${items.length} projects (${publicCount} public), ${capabilityCount} capability areas, ` +
     `${Object.keys(totals).length} languages, ${citations.total} citations across ` +
     `${citations.works} works (h=${citations.hIndex}), ` +
-    `7d: ${activity.commits} commits / ${activity.prs} PRs / ${activity.runs} runs [${activity.scope}], ` +
+    `7d: ${activity.commits} commits / ${activity.prs} PRs` +
+    (activity.runs === undefined ? '' : ` / ${activity.runs} runs`) +
+    ` [${activity.scope}], ` +
     `refreshed ${refreshed}`
   );
 }
