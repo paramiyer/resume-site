@@ -40,6 +40,11 @@ jobs:
       - name: Refresh GitHub project data
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Read-only PAT with visibility across all repos, public and private.
+          # Without it the weekly activity counts see only THIS repo, because
+          # GITHUB_TOKEN is scoped to the repository it runs in. The generator
+          # degrades gracefully and labels the section "public repositories only".
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: node scripts/build-stats.mjs
 
       # The refresh timestamp changes on every run, so this always commits.

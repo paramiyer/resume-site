@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-28T19:35:08.515Z",
-  "refreshed_label": "28 Aug 2026",
+  "generated_at": "2026-08-28T20:25:21.599Z",
+  "refreshed_label": "29 Aug 2026",
   "project_count": 12,
   "public_project_count": 8,
   "capability_count": 10,
@@ -31,6 +31,14 @@
     "total": 144,
     "works": 8,
     "hIndex": 5
+  },
+  "activity": {
+    "days": 7,
+    "commits": 2,
+    "repos": 1,
+    "prs": 0,
+    "runs": 8,
+    "scope": "public repositories only"
   },
   "projects": [
     {

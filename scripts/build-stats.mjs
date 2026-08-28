@@ -151,7 +151,14 @@ const OPENALEX_MAILTO = 'paramiyer@gmail.com'; // polite-pool contact, already p
 
 /* ── fetch helpers ───────────────────────────────────────────────────────── */
 
-const token = process.env.GITHUB_TOKEN || '';
+/* GH_PAT is a read-only personal token with visibility across all repos, public
+ * and private. Without it we fall back to GITHUB_TOKEN, which in Actions is
+ * scoped to THIS repo only — the weekly activity counts would then see one repo
+ * and understate the week by an order of magnitude. `activity.scope` records
+ * which happened, so a thin week is distinguishable from a missing token. */
+const token = process.env.GH_PAT || process.env.GITHUB_TOKEN || '';
+const HAS_PAT = Boolean(process.env.GH_PAT);
+const ACTIVITY_DAYS = 7;
 
 async function gh(path) {
   const res = await fetch(`https://api.github.com${path}`, {
@@ -399,6 +406,64 @@ function renderCitations({ perYear, total, works, hIndex }) {
     </div>`;
 }
 
+/**
+ * Rolling-7-day activity: commits, repositories touched, pull requests and CI runs.
+ *
+ * Aggregate counts only — no repository, project or client names are fetched into
+ * the rendered output, which is both the brief and the right default for work done
+ * under client confidentiality.
+ */
+async function fetchActivity() {
+  const since = new Date(Date.now() - ACTIVITY_DAYS * 86400000).toISOString();
+  const sinceDay = since.slice(0, 10);
+
+  // With a PAT this lists private repos too; without one it is public-only.
+  const repos = HAS_PAT
+    ? await gh(`/user/repos?per_page=100&affiliation=owner&sort=pushed`)
+    : await gh(`/users/${USER}/repos?per_page=100&type=owner&sort=pushed`);
+
+  const active = repos.filter((r) => !r.fork && r.pushed_at >= since);
+
+  let commits = 0, runs = 0, touched = 0;
+  for (const r of active) {
+    const cs = await gh(
+      `/repos/${r.full_name}/commits?since=${since}&author=${USER}&per_page=100`
+    ).catch(() => []);
+    if (cs.length) { commits += cs.length; touched += 1; }
+    const wf = await gh(
+      `/repos/${r.full_name}/actions/runs?created=%3E%3D${sinceDay}&per_page=100`
+    ).catch(() => ({ workflow_runs: [] }));
+    runs += (wf.workflow_runs || []).length;
+  }
+
+  // One search call covers every repo the token can see, including private.
+  const pr = await gh(
+    `/search/issues?q=${encodeURIComponent(`author:${USER} type:pr created:>=${sinceDay}`)}&per_page=1`
+  ).catch(() => ({ total_count: 0 }));
+
+  return {
+    days: ACTIVITY_DAYS,
+    commits, repos: touched, prs: pr.total_count || 0, runs,
+    scope: HAS_PAT ? 'all repositories' : 'public repositories only',
+  };
+}
+
+function renderActivity(a, refreshed) {
+  const bits = [
+    [a.commits, a.commits === 1 ? 'commit' : 'commits'],
+    [a.repos, a.repos === 1 ? 'repository' : 'repositories'],
+    [a.prs, a.prs === 1 ? 'pull request' : 'pull requests'],
+    [a.runs, a.runs === 1 ? 'pipeline run' : 'pipeline runs'],
+  ]
+    .map(([n, l]) => `<span><b>${n}</b> ${l}</span>`)
+    .join('<span class="sep" aria-hidden="true">·</span>');
+
+  return `<div class="activity">
+      <p class="act-line">${bits}</p>
+      <p class="act-note">Rolling ${a.days} days to ${esc(refreshed)}, counted from the GitHub API across ${esc(a.scope)}. Repository and client names are omitted by design.</p>
+    </div>`;
+}
+
 /* ── injection ───────────────────────────────────────────────────────────── */
 
 function inject(html, marker, body) {
@@ -479,6 +544,8 @@ async function main() {
   const hIndex = citeCounts.reduce((h, c, i) => (c >= i + 1 ? i + 1 : h), 0);
   const citations = { perYear, total: citeTotal, works: oa.results.length, hIndex };
 
+  const activity = await fetchActivity();
+
   const refreshed = new Intl.DateTimeFormat('en-GB', {
     day: 'numeric', month: 'short', year: 'numeric', timeZone: TZ,
   }).format(new Date());
@@ -491,6 +558,7 @@ async function main() {
     capability_count: capabilityCount,
     languages: totals,
     citations,
+    activity,
     projects: items.map(({ name, url, language, pushed_at, caps }) => ({
       name, url, language, pushed_at, caps,
     })),
@@ -507,6 +575,7 @@ async function main() {
   html = inject(html, 'CAPABILITY', renderCapability(byCapability));
   html = inject(html, 'PROJECTS', renderProjects(items));
   html = inject(html, 'LANGUAGES', renderLanguages(totals));
+  html = inject(html, 'ACTIVITY', renderActivity(activity, refreshed));
   html = inject(html, 'PRODUCTS', renderProducts());
   html = inject(html, 'CITATIONS', renderCitations(citations));
   html = inject(html, 'REFRESHED', `<span class="refreshed">last refresh ${refreshed}</span>`);
@@ -515,7 +584,9 @@ async function main() {
   console.log(
     `ok — ${items.length} projects (${publicCount} public), ${capabilityCount} capability areas, ` +
     `${Object.keys(totals).length} languages, ${citations.total} citations across ` +
-    `${citations.works} works (h=${citations.hIndex}), refreshed ${refreshed}`
+    `${citations.works} works (h=${citations.hIndex}), ` +
+    `7d: ${activity.commits} commits / ${activity.prs} PRs / ${activity.runs} runs [${activity.scope}], ` +
+    `refreshed ${refreshed}`
   );
 }
 
