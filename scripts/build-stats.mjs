@@ -193,13 +193,51 @@ const swatch = (lang) =>
 /* Products shipped to production. Static because none of this is on GitHub:
  * two are client-confidential bank systems and three are vendor/marketplace
  * products. Kept in step with the Data Products section of index.html. */
+/* Products shipped to production. This list is now the single source for BOTH the
+ * metric tile and the Products section, so the count can no longer disagree with
+ * what is listed. `repo` ties an entry to a CATALOGUE key — those are rendered here
+ * rather than as project cards, so nothing appears twice on the page. */
 const PRODUCTS = [
-  'Prospect & Deal-Signal Monitor (UAE bank)',
-  'Branch & ATM Network Intelligence (UAE bank)',
-  'Ijaba — industrial IoT analytics (Azure Marketplace)',
-  'Experience Based Repair (Bosch)',
-  'Agile Field Quality Monitoring (Bosch)',
+  {
+    title: 'Prospect & Deal-Signal Monitor', tag: 'client engagement',
+    blurb: 'Signal-driven prospecting and screening for corporate and investment banking relationship managers at a leading UAE bank. Scored signal feed, six-pillar entity scoring, grounded AI lead narratives and compliance screening. In production.',
+  },
+  {
+    title: 'Branch & ATM Network Intelligence', tag: 'client engagement',
+    blurb: "Geospatial siting, relocation and network planning across a UAE bank's branch and ATM estate, with per-branch catchment signals and a natural-language configuration assistant. In production.",
+  },
+  { repo: 'smith', tag: 'own product' },
+  { repo: 'ai-center-locator', tag: 'own product' },
+  {
+    title: 'Ijaba', url: 'https://azuremarketplace.microsoft.com/en-us/marketplace/apps/zaintechsolutionsfz-llc1692862657242.ijaba?tab=overview',
+    blurb: 'An AI-driven platform for industrial IoT analytics and insights, listed on the Azure Marketplace.',
+  },
+  {
+    title: 'Experience Based Repair', url: 'https://www.boschaftermarket.com/gb/en/news/tips-and-technology/esitronic-lesson-4/',
+    blurb: "Bosch's intelligent repair recommendation system, built from historical and expert repair knowledge.",
+  },
+  {
+    title: 'Agile Field Quality Monitoring', url: 'https://aws.amazon.com/solutions/case-studies/Robert-Bosch-GmbH-Case-Study/',
+    blurb: 'Cloud-based predictive system for detecting and analysing field failures across connected devices and vehicles.',
+  },
 ];
+
+/* CATALOGUE keys promoted into the Products section, so renderProjects skips them. */
+const PRODUCT_REPOS = new Set(PRODUCTS.filter((p) => p.repo).map((p) => p.repo));
+
+function renderProducts() {
+  const items = PRODUCTS.map((p) => {
+    const meta = p.repo ? CATALOGUE[p.repo] : null;
+    const title = meta ? meta.title : p.title;
+    const blurb = meta ? meta.blurb : p.blurb;
+    const head = p.url
+      ? `<a href="${esc(p.url)}" target="_blank" rel="noopener"><strong>${esc(title)}</strong></a>`
+      : `<strong>${esc(title)}</strong>`;
+    const tag = p.tag ? ` <span class="tag-private">${esc(p.tag)}</span>` : '';
+    return `      <li>${head}${tag} — ${esc(blurb)}</li>`;
+  }).join('\n');
+  return `<ul class="plain">\n${items}\n    </ul>`;
+}
 
 function renderMetrics({ projectCount, languageCount, capabilityCount, citationTotal }) {
   const tiles = [
@@ -247,6 +285,7 @@ function renderCapability(byCapability) {
 
 function renderProjects(items) {
   const cards = items
+    .filter((r) => !PRODUCT_REPOS.has(r.name))
     .map((r) => {
       const heading = r.url
         ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a>`
@@ -468,6 +507,7 @@ async function main() {
   html = inject(html, 'CAPABILITY', renderCapability(byCapability));
   html = inject(html, 'PROJECTS', renderProjects(items));
   html = inject(html, 'LANGUAGES', renderLanguages(totals));
+  html = inject(html, 'PRODUCTS', renderProducts());
   html = inject(html, 'CITATIONS', renderCitations(citations));
   html = inject(html, 'REFRESHED', `<span class="refreshed">last refresh ${refreshed}</span>`);
   await writeFile(join(ROOT, 'index.html'), html);
