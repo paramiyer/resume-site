@@ -102,6 +102,22 @@ const CATALOGUE = {
     caps: ['tooling'],
     private: true, language: 'JavaScript', since: '2026',
   },
+  'ai-center-locator': {
+    title: 'AI Center Locator — US Datacenter Site Suitability',
+    blurb:
+      'Site suitability scoring for US AI datacenters at H3 resolution 7 — ~1.5M hexagons over the continental US, ~29.7M rows. A dozen normalised infrastructure layers (power capacity and price, renewables, fibre, water, transport, workforce, land, hazard risk, cloud-region adjacency, plus competitor and community-opposition penalties) blended with live weight sliders.',
+    caps: ['geo', 'fullstack'],
+    private: true, language: 'Python', since: '2026',
+    flagship: true,
+  },
+  'smith': {
+    title: 'smith — Ticketing Product with an MCP Server',
+    blurb:
+      'Project → stream → ticket → subtask, with a board, comment threads and an MCP server so the product can be driven from Claude Code. Tables live in a Postgres schema and PostgREST generates the REST API from them, so the web app and the MCP server are two clients of one API. TypeScript monorepo shipping to Vercel with preview-on-PR.',
+    caps: ['tooling', 'fullstack'],
+    private: true, language: 'TypeScript', since: '2026',
+    flagship: true,
+  },
 };
 
 /* Capability areas, in display order. `proves` is the claim the code backs up. */
@@ -112,7 +128,9 @@ const CAPABILITIES = [
   { id: 'optimisation',name: 'Optimisation & OR',          proves: 'Constrained allocation under real business limits, not just prediction' },
   { id: 'vision',      name: 'Computer Vision',            proves: 'Pixel-level scene understanding with deep networks' },
   { id: 'governance',  name: 'Data Governance & PII',      proves: 'Automated classification of sensitive data estates at audit scale' },
-  { id: 'tooling',     name: 'Agent Tooling & Internal Products', proves: 'End-to-end internal tools: MCP integrations, scheduling, analytics surfaces' },
+  { id: 'geo',         name: 'Geospatial & Location Intelligence', proves: 'Continental-scale H3 tiling and weighted multi-criteria site scoring' },
+  { id: 'fullstack',   name: 'Full-Stack Product Engineering', proves: 'Schema to deployed UI: TypeScript monorepos, Postgres, CI/CD with preview deploys' },
+  { id: 'tooling',     name: 'Agent Tooling & MCP', proves: 'MCP servers built so products can be driven directly from an AI client' },
   { id: 'dataeng',     name: 'Data Acquisition',           proves: 'Building the collection layer that feeds the models' },
 ];
 

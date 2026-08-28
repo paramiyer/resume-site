@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-24T05:42:47.532Z",
-  "refreshed_label": "24 Aug 2026",
-  "project_count": 10,
+  "generated_at": "2026-08-28T19:07:18.112Z",
+  "refreshed_label": "28 Aug 2026",
+  "project_count": 12,
   "public_project_count": 8,
-  "capability_count": 8,
+  "capability_count": 10,
   "languages": {
-    "Python": 3,
+    "Python": 4,
     "Jupyter Notebook": 5,
-    "TypeScript": 1,
+    "TypeScript": 2,
     "JavaScript": 1
   },
   "citations": {
@@ -80,6 +80,26 @@
       "caps": [
         "tooling",
         "dataeng"
+      ]
+    },
+    {
+      "name": "ai-center-locator",
+      "url": null,
+      "language": "Python",
+      "pushed_at": null,
+      "caps": [
+        "geo",
+        "fullstack"
+      ]
+    },
+    {
+      "name": "smith",
+      "url": null,
+      "language": "TypeScript",
+      "pushed_at": null,
+      "caps": [
+        "tooling",
+        "fullstack"
       ]
     },
     {

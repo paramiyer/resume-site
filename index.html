@@ -229,7 +229,7 @@ footer{
     <span><strong>Managed via Claude</strong> · updated weekly via a routine task</span>
     <span aria-hidden="true">·</span>
     <!-- GEN:REFRESHED -->
-    <span class="refreshed">last refresh 24 Aug 2026</span>
+    <span class="refreshed">last refresh 28 Aug 2026</span>
     <!-- /GEN:REFRESHED -->
   </div>
 </header>
@@ -261,7 +261,7 @@ footer{
         <div class="metric-src metric-src--live">live from API</div>
       </div>
       <div class="metric">
-        <div class="metric-v" data-count="8">8</div>
+        <div class="metric-v" data-count="10">10</div>
         <div class="metric-l">Capability areas evidenced</div>
         <div class="metric-src metric-src--live">live from API</div>
       </div>
@@ -352,10 +352,26 @@ footer{
         </div>
       </div>
       <div class="cap">
-        <h3 class="cap-name">Agent Tooling &amp; Internal Products</h3>
-        <p class="cap-proves">End-to-end internal tools: MCP integrations, scheduling, analytics surfaces</p>
+        <h3 class="cap-name">Geospatial &amp; Location Intelligence</h3>
+        <p class="cap-proves">Continental-scale H3 tiling and weighted multi-criteria site scoring</p>
+        <div class="chips">
+            <span class="chip chip--private"><span class="dot" style="background:#3572A5" aria-hidden="true"></span>AI Center Locator — US Datacenter Site Suitability</span>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Full-Stack Product Engineering</h3>
+        <p class="cap-proves">Schema to deployed UI: TypeScript monorepos, Postgres, CI/CD with preview deploys</p>
+        <div class="chips">
+            <span class="chip chip--private"><span class="dot" style="background:#3572A5" aria-hidden="true"></span>AI Center Locator — US Datacenter Site Suitability</span>
+            <span class="chip chip--private"><span class="dot" style="background:#3178c6" aria-hidden="true"></span>smith — Ticketing Product with an MCP Server</span>
+        </div>
+      </div>
+      <div class="cap">
+        <h3 class="cap-name">Agent Tooling &amp; MCP</h3>
+        <p class="cap-proves">MCP servers built so products can be driven directly from an AI client</p>
         <div class="chips">
             <span class="chip chip--private"><span class="dot" style="background:#3178c6" aria-hidden="true"></span>myBob — Local-First Analytics Dashboard</span>
+            <span class="chip chip--private"><span class="dot" style="background:#3178c6" aria-hidden="true"></span>smith — Ticketing Product with an MCP Server</span>
             <span class="chip chip--private"><span class="dot" style="background:#f1e05a" aria-hidden="true"></span>CoachSlot — Booking &amp; Billing Mini-App</span>
         </div>
       </div>
@@ -400,6 +416,16 @@ footer{
         <p class="card-d">Personal analytics and insight dashboard over an MCP server, running entirely locally — no central hosting. TypeScript monorepo with a browser SPA and its own API layer.</p>
         <div class="card-m"><span class="dot" style="background:#3178c6" aria-hidden="true"></span><span>TypeScript</span><span class="sep">·</span><span>2026</span><span class="sep">·</span><span class="tag-private">private repo</span></div>
       </article>
+      <article class="card card--flagship">
+        <h3 class="card-t">AI Center Locator — US Datacenter Site Suitability</h3>
+        <p class="card-d">Site suitability scoring for US AI datacenters at H3 resolution 7 — ~1.5M hexagons over the continental US, ~29.7M rows. A dozen normalised infrastructure layers (power capacity and price, renewables, fibre, water, transport, workforce, land, hazard risk, cloud-region adjacency, plus competitor and community-opposition penalties) blended with live weight sliders.</p>
+        <div class="card-m"><span class="dot" style="background:#3572A5" aria-hidden="true"></span><span>Python</span><span class="sep">·</span><span>2026</span><span class="sep">·</span><span class="tag-private">private repo</span></div>
+      </article>
+      <article class="card card--flagship">
+        <h3 class="card-t">smith — Ticketing Product with an MCP Server</h3>
+        <p class="card-d">Project → stream → ticket → subtask, with a board, comment threads and an MCP server so the product can be driven from Claude Code. Tables live in a Postgres schema and PostgREST generates the REST API from them, so the web app and the MCP server are two clients of one API. TypeScript monorepo shipping to Vercel with preview-on-PR.</p>
+        <div class="card-m"><span class="dot" style="background:#3178c6" aria-hidden="true"></span><span>TypeScript</span><span class="sep">·</span><span>2026</span><span class="sep">·</span><span class="tag-private">private repo</span></div>
+      </article>
       <article class="card">
         <h3 class="card-t"><a href="https://github.com/paramiyer/AI_Car_Diagnosis_Assistant" target="_blank" rel="noopener">AI Car Diagnosis &amp; Repair Assistant</a></h3>
         <p class="card-d">From user-described symptoms, runs a constrained-domain search and returns grounded inferences from an LLM. Streamlit front end.</p>
@@ -432,11 +458,11 @@ footer{
 <section aria-labelledby="langs">
   <h2 id="langs">Language Mix</h2>
   <!-- GEN:LANGUAGES -->
-    <div class="langbar" role="img" aria-label="Primary language across 10 projects"><span class="seg" style="width:50.00%;background:#DA5B0B" title="Jupyter Notebook 50.0%"></span><span class="seg" style="width:30.00%;background:#3572A5" title="Python 30.0%"></span><span class="seg" style="width:10.00%;background:#3178c6" title="TypeScript 10.0%"></span><span class="seg" style="width:10.00%;background:#f1e05a" title="JavaScript 10.0%"></span></div>
+    <div class="langbar" role="img" aria-label="Primary language across 12 projects"><span class="seg" style="width:41.67%;background:#DA5B0B" title="Jupyter Notebook 41.7%"></span><span class="seg" style="width:33.33%;background:#3572A5" title="Python 33.3%"></span><span class="seg" style="width:16.67%;background:#3178c6" title="TypeScript 16.7%"></span><span class="seg" style="width:8.33%;background:#f1e05a" title="JavaScript 8.3%"></span></div>
       <ul class="langkey">
         <li><span class="dot" style="background:#DA5B0B" aria-hidden="true"></span>Jupyter Notebook <span class="pct">5 projects</span></li>
-        <li><span class="dot" style="background:#3572A5" aria-hidden="true"></span>Python <span class="pct">3 projects</span></li>
-        <li><span class="dot" style="background:#3178c6" aria-hidden="true"></span>TypeScript <span class="pct">1 project</span></li>
+        <li><span class="dot" style="background:#3572A5" aria-hidden="true"></span>Python <span class="pct">4 projects</span></li>
+        <li><span class="dot" style="background:#3178c6" aria-hidden="true"></span>TypeScript <span class="pct">2 projects</span></li>
         <li><span class="dot" style="background:#f1e05a" aria-hidden="true"></span>JavaScript <span class="pct">1 project</span></li>
       </ul>
     <!-- /GEN:LANGUAGES -->
@@ -477,8 +503,14 @@ footer{
     <li>Enterprise AI Operating Models</li>
     <li>Reusable AI Platforms &amp; Delivery Standards</li>
     <li>Responsible AI &amp; Model-Risk Governance</li>
-    <li>Databricks · Lakehouse · Unity Catalog</li>
+    <li>Azure · ADLS Gen2 · Databricks · Unity Catalog</li>
     <li>LLMs · RAG · Agentic Workflows · Evaluation</li>
+    <li>LLMOps · Prompt &amp; Model Provenance</li>
+    <li>MCP Servers &amp; Agent Tooling</li>
+    <li>Full-Stack Product Engineering · TypeScript · Next.js · Postgres</li>
+    <li>CI/CD · Preview Deployments · Automated Quality Gates</li>
+    <li>Geospatial Intelligence · H3 · Site Suitability</li>
+    <li>Entity Resolution · Vector Retrieval</li>
   </ul>
 </section>
 
