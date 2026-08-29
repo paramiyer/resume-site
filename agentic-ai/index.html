@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Enterprise Agentic AI Platforms | Parameshwaran Iyer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="When an agent is genuinely the right shape, what an enterprise agent platform needs underneath it — prompt identity, data reuse and tenant isolation — and why MCP changes the integration question.">
+<link rel="canonical" href="https://paramiyer.github.io/resume-site/agentic-ai/">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../styles.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Parameshwaran Iyer">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://paramiyer.github.io/resume-site/agentic-ai/">
+<meta property="og:title" content="Enterprise Agentic AI Platforms">
+<meta property="og:description" content="When an agent is genuinely the right shape, what an enterprise agent platform needs underneath it — prompt identity, data reuse and tenant isolation — and why MCP changes the integration question.">
+<meta property="og:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Enterprise Agentic AI Platforms">
+<meta name="twitter:description" content="When an agent is genuinely the right shape, what an enterprise agent platform needs underneath it — prompt identity, data reuse and tenant isolation — and why MCP changes the integration question.">
+<meta name="twitter:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://paramiyer.github.io/resume-site/agentic-ai/#article",
+      "headline": "Enterprise Agentic AI Platforms",
+      "description": "When an agent is genuinely the right shape, what an enterprise agent platform needs underneath it — prompt identity, data reuse and tenant isolation — and why MCP changes the integration question.",
+      "url": "https://paramiyer.github.io/resume-site/agentic-ai/",
+      "inLanguage": "en",
+      "datePublished": "2026-08-29",
+      "dateModified": "29 Aug 2026",
+      "author": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "publisher": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "mainEntityOfPage": "https://paramiyer.github.io/resume-site/agentic-ai/",
+      "about": [
+        "Agentic AI",
+        "Model Context Protocol",
+        "AI Platforms"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://paramiyer.github.io/resume-site/agentic-ai/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://paramiyer.github.io/resume-site/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Agentic AI",
+          "item": "https://paramiyer.github.io/resume-site/agentic-ai/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="../">Parameshwaran Iyer</a>
+  <div class="nav-links">
+    <a href="../">Home</a>
+    <a href="../enterprise-ai-architecture/">Enterprise AI Architecture</a>
+    <a href="../enterprise-rag/">Production RAG</a>
+    <a href="../agentic-ai/" aria-current="page">Agentic AI</a>
+    <a href="../about/">About</a>
+  </div>
+</nav>
+<div class="wrap">
+<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="../">Home</a> · Agentic AI</p>
+  <h1>Agentic AI: most things called agents should not be</h1>
+  <p class="byline">By Parameshwaran Iyer · Updated 29 Aug 2026</p>
+
+  <div class="answer">
+    <p><strong>Most enterprise "agents" are pipelines with a language model in them, and
+    they should stay that way.</strong> An agent earns its cost when the work is genuinely
+    open-ended — unknown number of steps, unknown tools, a real decision about what to do
+    next. Everything else is better served by a deterministic cascade that falls back to a
+    model only when it fails to match.</p>
+  </div>
+
+  <h2>Deterministic first</h2>
+  <p>A pattern that has held up well: classify intent, then try a series of exact,
+  deterministic responders in priority order, and only compose an answer with a language
+  model when none of them match. The deterministic paths are fast, free, testable and
+  explainable. The model handles the tail.</p>
+  <p>This inverts the usual instinct, which is to let the model decide everything and add
+  guardrails afterwards. Starting deterministic means the expensive, non-deterministic
+  path is the exception you can afford to scrutinise.</p>
+
+  <h2>What an agent platform needs underneath it</h2>
+  <p>Once agents are real, three platform problems appear that single-agent demos never
+  surface.</p>
+
+  <h3>1. Prompt and model as part of data identity</h3>
+  <p>If an agent's output is cached or reused, the cache key has to include the composed
+  prompt content, the trust boundary and the model tier — keyed on content, not on a
+  registry version number. Otherwise toggling a prompt registry on or off, or changing
+  model tier, silently reuses results that a different system produced. Content-addressed
+  prompt identity makes that class of bug impossible rather than unlikely.</p>
+
+  <h3>2. Reuse, or you pay for the same work forever</h3>
+  <p>Agents that re-fetch everything on every run are the default and are ruinously
+  wasteful. The pattern that fixes it: persist what was fetched, and on the next request
+  check coverage <em>before</em> fetching. Two distinct match modes matter —
+  <strong>identity</strong> (the same request, so serve the same answer) and
+  <strong>coverage</strong> (a wider request that contains what you already have, so fetch
+  only the gap and accumulate).</p>
+  <p>On a multi-agent platform I designed this reduced repeat runs to zero re-fetch, with
+  gap-only retrieval when the ask widened. The architectural cost is real: coverage has to
+  be derived from the stored data rather than tracked separately, or the tracker and the
+  truth drift apart.</p>
+
+  <h3>3. Tenant isolation belongs in the identity, not the query</h3>
+  <p>The moment two clients share a platform, reuse keyed purely on data content will
+  collide — the same scenario run by two customers resolves to the same row. The fix is to
+  fold an owner scope into both the identity hash and the primary key, so isolation is
+  structural rather than a filter someone might forget. Genuinely global reference data
+  can stay shared and byte-identical; everything else is scoped.</p>
+  <p>This is worth deciding before the second customer, not after.</p>
+
+  <h2>MCP changes the integration question</h2>
+  <p>The Model Context Protocol makes "how does an AI client reach this system" a
+  first-class design question rather than an afterthought. The pattern I have found
+  cleanest: let the database generate the API, and treat the web application and the MCP
+  server as two clients of that same API.</p>
+  <p>On a product I built this way, the schema generates the REST layer and row-level
+  security carries authorisation, so the MCP server adds tool definitions and almost no
+  logic. The whole product — board, comments, subtasks, an MCP server and preview-on-push
+  deployment — came together in an evening, not because generation is magic but because
+  choosing a stack where the database <em>is</em> the API removes most of what would
+  otherwise be written by hand.</p>
+  <table>
+    <thead><tr><th>&nbsp;</th><th>MCP server</th><th>Conventional REST integration</th></tr></thead>
+    <tbody>
+      <tr><td>Consumer</td><td>An AI client, interactively</td><td>Another service, programmatically</td></tr>
+      <tr><td>Contract</td><td>Tools with descriptions the model reads</td><td>A schema humans read</td></tr>
+      <tr><td>Auth</td><td>Still yours to solve — the protocol does not grant it</td><td>Established patterns</td></tr>
+      <tr><td>Best for</td><td>Letting a person drive your system through an assistant</td><td>Machine-to-machine at volume</td></tr>
+    </tbody>
+  </table>
+
+  <h2>When not to build an agent</h2>
+  <ul>
+    <li>The workflow has a fixed number of known steps. Write the pipeline.</li>
+    <li>Every step needs an audit trail with a named approver. Agency and accountability
+    pull against each other; be explicit about which you need.</li>
+    <li>Latency matters more than flexibility. Multi-step reasoning is slow, and users
+    notice.</li>
+    <li>You cannot yet evaluate the output. An unevaluable agent is an unfalsifiable one.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>Agentic architecture is mostly ordinary distributed-systems work wearing new
+  vocabulary: identity, caching, isolation, cost and evaluation. The interesting decisions
+  are about what deserves agency at all, and what the platform beneath guarantees when the
+  answer is "this part does".</p>
+
+  <div class="related">
+    <h2>Related</h2>
+    <ul>
+      <li><a href="../enterprise-rag/">Production RAG</a> — the grounding and evaluation an agent still needs.</li>
+      <li><a href="../enterprise-ai-architecture/">Enterprise AI Architecture</a> — the platform an agent platform sits inside.</li>
+      <li><a href="../">Back to the portfolio</a> — enterprise outcomes, platforms shipped and the builds behind them.</li>
+    </ul>
+  </div>
+  <p style="margin-top:36px"><strong>Building an enterprise AI or GenAI platform?</strong>
+  <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a> ·
+  <a href="https://www.linkedin.com/in/parameshwaran-iyer-790b2131/" target="_blank" rel="noopener">LinkedIn</a></p>
+</article>
+</main>
+</div>
+<footer class="wrap">
+  <p>Written from first-hand enterprise delivery. Client names and confidential
+  architecture details are deliberately omitted.</p>
+</footer>
+</body>
+</html>

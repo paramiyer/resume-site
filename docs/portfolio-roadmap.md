@@ -12,7 +12,7 @@ inventory does not support.
 | 0 | Baseline audit & evidence inventory | **Complete — not committed** |
 | 1 | Positioning & information architecture | **Complete** |
 | 2 | Technical SEO foundation | **Complete** |
-| 3 | AI-search / GEO content architecture | Not started |
+| 3 | AI-search / GEO content architecture | **Complete** |
 | 4 | Authority & case studies | Not started |
 | 5 | LinkedIn + GitHub + entity alignment | Not started |
 | 6 | Measurement, indexing & content system | Not started |
@@ -256,8 +256,109 @@ the multi-page architecture question before Phase 3 can create routes.
 decision is made and `ROUTES` already drives the sitemap. Phase 3 should build the
 layout/pages builder first, then the first expertise pages.
 
+---
+
+## Phase 3 — AI-search / GEO content architecture
+
+**Status:** complete.
+
+### Decisions made
+
+- **Four routes, not twelve.** The brief says quality over volume and to create
+  only routes that can carry genuinely useful content. Three expertise pages plus
+  an About page are what the current evidence supports without padding. The rest
+  is backlog, below.
+- **Builder built as decided in Phase 2** — `scripts/build-pages.mjs`, ~150 lines,
+  zero dependencies. `index.html` is deliberately *not* rendered through it: it
+  stays hand-authored with GEN markers, so human prose is never at a template's mercy.
+- **CSS extracted to `styles.css`**, shared across all pages and cached, replacing
+  the inline block.
+- **Content is patterns, never disclosures.** No employer, client, system or ticket
+  is named anywhere. Every lesson is stated as a reusable pattern.
+- **Retrieval-first format**: each page opens with its question and a direct answer
+  block, headings are descriptive claims, and every section carries its own point so
+  a fragment lifted out of context still stands up.
+
+### Files created
+
+`content/pages.mjs` · `scripts/build-pages.mjs` · `styles.css` ·
+`enterprise-ai-architecture/` · `enterprise-rag/` · `agentic-ai/` · `about/`
+
+### Files changed
+
+- `index.html` — inline `<style>` replaced by `styles.css`; primary nav added
+- `scripts/build-stats.mjs` — `ROUTES` extended, so the sitemap now lists 5 URLs
+- `.github/workflows/static.yml` — runs `build-pages.mjs`, stages the new routes
+- `styles.css` — nav, article, answer-block, table and long-form heading styles
+
+### Content written
+
+| Route | Question it answers |
+|---|---|
+| `/enterprise-ai-architecture/` | What does enterprise AI architecture consist of, and why do pilots stall? |
+| `/enterprise-rag/` | What changes when RAG has to survive a risk review? |
+| `/agentic-ai/` | When is an agent the right shape, and what does the platform need? |
+| `/about/` | Entity consolidation — who, what level, what evidence, where |
+
+Each carries a direct-answer block, a tradeoff table, a "when not to" section and
+an explicit conclusion.
+
+### Defects found and fixed during the phase
+
+- **About page was typed `TechArticle`** — wrong schema for an about page.
+  Now `AboutPage` via a per-page `type`.
+- **`<title>` read "About Parameshwaran Iyer | Parameshwaran Iyer"** — added a
+  `titleTag` override.
+- **Article typography** — the homepage `h2` is a small-caps section label and read
+  as shouting in prose; overridden to sentence case for `.article`.
+
+### Verification
+
+| Check | Result |
+|---|---|
+| Generators | `build-pages.mjs` and `build-stats.mjs` exit 0 |
+| Idempotence | pages and `index.html` byte-identical on re-run |
+| Routes | all 5 plus `/404.html` return 200 |
+| Relative links from a subpage | `../styles.css`, `../favicon.svg`, sibling routes all 200 |
+| Per-page SEO | unique title, description and canonical; exactly one `h1` each |
+| Structured data | TechArticle ×3 + AboutPage, each with BreadcrumbList, all authored by `#person` |
+| Sitemap | 5 URLs, generated from `ROUTES` |
+
+### Content backlog — ranked, not yet written
+
+1. **Databricks vs PostgreSQL as the serving layer for AI applications** — strong
+   first-hand material, high technical-authority value
+2. **Why enterprise APIs should not query the lakehouse directly**
+3. **From GenAI pilot to production platform** — the commercial-intent piece
+4. **Scaling geospatial intelligence across millions of H3 cells** — differentiated,
+   backed by a real build
+5. **AI governance without killing delivery speed**
+6. **MCP vs conventional APIs in enterprise integration** — partly covered on the
+   agentic page; deserves its own treatment
+7. **AI transformation in the GCC** — commercially the highest-intent page, and the
+   one most at risk of becoming filler. Only worth writing with specifics
+
+### Unresolved questions
+
+1. Carried: **resume still contradicts the site** on three titles.
+2. Carried: dead product links — replacements or leave unlinked?
+3. **No `/insights` index yet.** Correct for four pages; needed once the backlog
+   above is half-written.
+4. **Homepage does not link into the expertise pages** beyond the nav. Deep
+   contextual links from Problems I Solve and the capability matrix would be
+   stronger — a Phase 4 job alongside case studies.
+
+### Manual actions required
+
+- Decide (1) and (2). Nothing blocks Phase 4.
+
+### Next phase
+
+**Phase 4 — Authority and case studies.** Should also add the contextual
+homepage → expertise links noted above.
+
 ### Recommended next command
 
 ```
-Proceed with Phase 3
+Proceed with Phase 4
 ```

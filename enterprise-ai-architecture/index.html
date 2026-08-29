@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Enterprise AI Architecture | Parameshwaran Iyer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What enterprise AI architecture actually consists of, why GenAI pilots stall before production, and the control plane that decides whether a regulated organisation can deploy anything at all.">
+<link rel="canonical" href="https://paramiyer.github.io/resume-site/enterprise-ai-architecture/">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../styles.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Parameshwaran Iyer">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://paramiyer.github.io/resume-site/enterprise-ai-architecture/">
+<meta property="og:title" content="Enterprise AI Architecture">
+<meta property="og:description" content="What enterprise AI architecture actually consists of, why GenAI pilots stall before production, and the control plane that decides whether a regulated organisation can deploy anything at all.">
+<meta property="og:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Enterprise AI Architecture">
+<meta name="twitter:description" content="What enterprise AI architecture actually consists of, why GenAI pilots stall before production, and the control plane that decides whether a regulated organisation can deploy anything at all.">
+<meta name="twitter:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://paramiyer.github.io/resume-site/enterprise-ai-architecture/#article",
+      "headline": "Enterprise AI Architecture",
+      "description": "What enterprise AI architecture actually consists of, why GenAI pilots stall before production, and the control plane that decides whether a regulated organisation can deploy anything at all.",
+      "url": "https://paramiyer.github.io/resume-site/enterprise-ai-architecture/",
+      "inLanguage": "en",
+      "datePublished": "2026-08-29",
+      "dateModified": "29 Aug 2026",
+      "author": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "publisher": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "mainEntityOfPage": "https://paramiyer.github.io/resume-site/enterprise-ai-architecture/",
+      "about": [
+        "Enterprise AI Architecture",
+        "AI Platforms",
+        "Data Governance"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://paramiyer.github.io/resume-site/enterprise-ai-architecture/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://paramiyer.github.io/resume-site/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Enterprise AI Architecture",
+          "item": "https://paramiyer.github.io/resume-site/enterprise-ai-architecture/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="../">Parameshwaran Iyer</a>
+  <div class="nav-links">
+    <a href="../">Home</a>
+    <a href="../enterprise-ai-architecture/" aria-current="page">Enterprise AI Architecture</a>
+    <a href="../enterprise-rag/">Production RAG</a>
+    <a href="../agentic-ai/">Agentic AI</a>
+    <a href="../about/">About</a>
+  </div>
+</nav>
+<div class="wrap">
+<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="../">Home</a> · Enterprise AI Architecture</p>
+  <h1>Enterprise AI architecture: the layer most pilots never build</h1>
+  <p class="byline">By Parameshwaran Iyer · Updated 29 Aug 2026</p>
+
+  <div class="answer">
+    <p><strong>Enterprise AI architecture is four layers, not three.</strong> A governed
+    data platform, a model and retrieval layer, and the applications and APIs on top —
+    then a control plane that makes the first three deployable in a regulated
+    organisation. Most pilots build three layers well and never build the fourth, which
+    is why they stall at exactly the point where they meet risk, security and audit.</p>
+  </div>
+
+  <h2>The four layers</h2>
+  <p>Stated plainly, so the rest of the page has something to refer to:</p>
+  <ol>
+    <li><strong>Governed data.</strong> A lakehouse or equivalent with layered
+    refinement, a catalogue that knows what every table is, and access control that
+    an auditor can read.</li>
+    <li><strong>Models and retrieval.</strong> Model access, grounding, retrieval,
+    caching, evaluation. This is the layer everyone means when they say "AI".</li>
+    <li><strong>Applications and APIs.</strong> The services and interfaces where the
+    output actually reaches a person who makes a decision.</li>
+    <li><strong>The control plane.</strong> Guardrails, model risk, audit, human
+    sign-off, and the deployment path that carries all of it. This is the layer that
+    decides whether anything above it can go live.</li>
+  </ol>
+
+  <h2>Why GenAI pilots stall</h2>
+  <p>A pilot is judged on whether the output is good. A platform is judged on whether
+  the organisation can defend it. Those are different tests, and the second one is
+  usually met for the first time in a risk review, months after the demo.</p>
+  <p>The failure is rarely model quality. It is that nobody can answer: which data did
+  this see, who is allowed to run it, what happens when it is wrong, who signed off,
+  and how would we know if it silently degraded. Those questions are answered by
+  architecture, not by prompt engineering.</p>
+
+  <h2>What "governed" means in practice</h2>
+  <p>Governance fails when it lives in a document. It works when it lives in the
+  runtime and fails the build. Three patterns that have earned their place:</p>
+  <h3>A sanctioned write path, and only one</h3>
+  <p>Every write into the platform goes through a shared library that enforces schema,
+  naming, partitioning and cataloguing. Direct writes are prohibited, and a conformance
+  test in CI proves nobody took a shortcut. The value is not tidiness — it is that
+  provenance is guaranteed rather than hoped for.</p>
+  <h3>A canonical source registry</h3>
+  <p>One machine-readable list of every source and entity, with schema stubs required
+  for each. Adding a source becomes a reviewed change rather than a pipeline someone
+  wrote on a Friday. On a platform I designed, this registry reached 112 sources and
+  remained the thing that made the estate legible.</p>
+  <h3>Default-deny, enforced at boot</h3>
+  <p>Access rules are declared centrally, and the service <em>refuses to start</em> if
+  any route is uncatalogued. That single design choice converts "we think everything is
+  protected" into "it cannot run unless everything is protected". It is the cheapest
+  strong control I know of.</p>
+
+  <h2>The decision that shapes everything else</h2>
+  <p>Shared platform, or one stack per use case? This is the architectural fork, and
+  the honest answer depends on how many use cases you actually expect.</p>
+  <table>
+    <thead><tr><th>&nbsp;</th><th>Shared platform</th><th>Per-use-case stacks</th></tr></thead>
+    <tbody>
+      <tr><th>Time to first pilot</th><td>Slower</td><td>Faster</td></tr>
+      <tr><th>Time to fifth use case</th><td>Much faster</td><td>Linear, then worse</td></tr>
+      <tr><th>Governance</th><td>Once, centrally</td><td>Re-argued every time</td></tr>
+      <tr><th>Failure mode</th><td>Central team becomes the bottleneck</td><td>Estate fragments; nothing is auditable</td></tr>
+      <tr><th>Right when</th><td>Three or more use cases are real</td><td>Genuinely exploring whether AI helps at all</td></tr>
+    </tbody>
+  </table>
+  <p>The trap is choosing per-use-case stacks for speed, succeeding, and then
+  discovering the second and third teams cannot reuse anything. The mitigation is not
+  to over-build early — it is to put the sanctioned write path and the registry in
+  place at use case one, when they cost almost nothing.</p>
+
+  <h2>Failure modes worth designing against</h2>
+  <p>These are drawn from production, not from theory:</p>
+  <ul>
+    <li><strong>Documentation drift.</strong> On any fast-moving estate, the code and
+    the docs disagree within months. Treat the code, the architecture decision records
+    and recent history as authoritative, and say so explicitly — otherwise a new joiner
+    builds against a description of a system that no longer exists.</li>
+    <li><strong>A safety default that is unsafe in production.</strong> A mock-data flag
+    defaulting to <em>on</em> meant a service happily served fabricated data in
+    production, because production set neither the variable nor the secret. Defaults
+    should fail closed and loudly, never quietly and plausibly.</li>
+    <li><strong>Silent weakening.</strong> An enrichment step that degrades to null on
+    timeout rather than erroring keeps the page up, and keeps the gap invisible. Decide
+    per field whether missing means "unknown" or "zero" — they are not the same, and the
+    difference changes every downstream calculation.</li>
+    <li><strong>Unbounded human-review queues.</strong> Review surfaces must never
+    silently disappear. Mark rows resolved, never delete, and mirror them for audit.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>If you are choosing where to spend architectural effort on an enterprise AI
+  programme, spend it on the control plane first. The data platform and the model layer
+  have good vendors and good defaults. The layer that decides whether a regulated
+  organisation can actually deploy — provenance, enforced access, evaluation gates,
+  human sign-off — has to be designed, and it is the layer that determines whether your
+  pilot becomes a platform or a demo people remember fondly.</p>
+
+  <div class="related">
+    <h2>Related</h2>
+    <ul>
+      <li><a href="../enterprise-rag/">Production RAG</a> — what changes when retrieval has to pass a risk review.</li>
+      <li><a href="../agentic-ai/">Agentic AI</a> — when an agent is the right shape, and what the platform underneath needs.</li>
+      <li><a href="../">Back to the portfolio</a> — enterprise outcomes, platforms shipped and the builds behind them.</li>
+    </ul>
+  </div>
+  <p style="margin-top:36px"><strong>Building an enterprise AI or GenAI platform?</strong>
+  <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a> ·
+  <a href="https://www.linkedin.com/in/parameshwaran-iyer-790b2131/" target="_blank" rel="noopener">LinkedIn</a></p>
+</article>
+</main>
+</div>
+<footer class="wrap">
+  <p>Written from first-hand enterprise delivery. Client names and confidential
+  architecture details are deliberately omitted.</p>
+</footer>
+</body>
+</html>

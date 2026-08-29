@@ -72,9 +72,13 @@ jobs:
       - name: Stage site
         run: |
           mkdir -p _site
-          cp index.html 404.html robots.txt sitemap.xml site.webmanifest \
+          node scripts/build-pages.mjs
+          cp index.html 404.html robots.txt sitemap.xml site.webmanifest styles.css \
              favicon.svg apple-touch-icon.png og-image.png ParamProfile.png _site/
           cp -r data scripts _site/
+          for d in enterprise-ai-architecture enterprise-rag agentic-ai about; do
+            mkdir -p "_site/$d" && cp "$d/index.html" "_site/$d/"
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

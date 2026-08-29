@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Production RAG in Regulated Enterprises | Parameshwaran Iyer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="What changes when a retrieval-augmented system has to survive a risk review: grounding contracts, what belongs in a cache key, evaluation as a release gate, and where human sign-off is not optional.">
+<link rel="canonical" href="https://paramiyer.github.io/resume-site/enterprise-rag/">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../styles.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Parameshwaran Iyer">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://paramiyer.github.io/resume-site/enterprise-rag/">
+<meta property="og:title" content="Production RAG in Regulated Enterprises">
+<meta property="og:description" content="What changes when a retrieval-augmented system has to survive a risk review: grounding contracts, what belongs in a cache key, evaluation as a release gate, and where human sign-off is not optional.">
+<meta property="og:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Production RAG in Regulated Enterprises">
+<meta name="twitter:description" content="What changes when a retrieval-augmented system has to survive a risk review: grounding contracts, what belongs in a cache key, evaluation as a release gate, and where human sign-off is not optional.">
+<meta name="twitter:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://paramiyer.github.io/resume-site/enterprise-rag/#article",
+      "headline": "Production RAG in Regulated Enterprises",
+      "description": "What changes when a retrieval-augmented system has to survive a risk review: grounding contracts, what belongs in a cache key, evaluation as a release gate, and where human sign-off is not optional.",
+      "url": "https://paramiyer.github.io/resume-site/enterprise-rag/",
+      "inLanguage": "en",
+      "datePublished": "2026-08-29",
+      "dateModified": "29 Aug 2026",
+      "author": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "publisher": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "mainEntityOfPage": "https://paramiyer.github.io/resume-site/enterprise-rag/",
+      "about": [
+        "Retrieval-Augmented Generation",
+        "Generative AI",
+        "AI Governance"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://paramiyer.github.io/resume-site/enterprise-rag/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://paramiyer.github.io/resume-site/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Production RAG",
+          "item": "https://paramiyer.github.io/resume-site/enterprise-rag/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="../">Parameshwaran Iyer</a>
+  <div class="nav-links">
+    <a href="../">Home</a>
+    <a href="../enterprise-ai-architecture/">Enterprise AI Architecture</a>
+    <a href="../enterprise-rag/" aria-current="page">Production RAG</a>
+    <a href="../agentic-ai/">Agentic AI</a>
+    <a href="../about/">About</a>
+  </div>
+</nav>
+<div class="wrap">
+<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="../">Home</a> · Production RAG</p>
+  <h1>Production RAG: retrieval is the easy part</h1>
+  <p class="byline">By Parameshwaran Iyer · Updated 29 Aug 2026</p>
+
+  <div class="answer">
+    <p><strong>In a regulated enterprise, retrieval quality is rarely what blocks
+    release.</strong> What blocks release is that nobody can prove what the model saw,
+    that a prompt change silently served stale answers from cache, that there is no
+    regression gate, and that a system giving advice on a customer has no human sign-off.
+    Those are architecture problems, and they are solvable.</p>
+  </div>
+
+  <h2>Start with a grounding contract</h2>
+  <p>Write it down, in the prompt and in the design: <em>the model has never heard of
+  these entities, and every claim it makes must trace to context supplied in this
+  request.</em> Anything the model appears to know that was not injected is a defect,
+  not a bonus.</p>
+  <p>That single sentence forces useful architecture. Context has to be assembled
+  deliberately from known-good sources, which means those sources have to exist, be
+  addressable and be trustworthy. It also makes hallucination testable: you can ask
+  whether a claim appears in the supplied context, which you cannot do if the boundary
+  was never drawn.</p>
+
+  <h2>Cache identity is a correctness problem, not a performance one</h2>
+  <p>Caching LLM output is close to mandatory at enterprise volume — a cache hit turns a
+  multi-second, multi-call context build into a single fast read. The question is what
+  belongs in the key.</p>
+  <p>A cache key that includes the entity and the model but <strong>not the prompt
+  text</strong> looks fine and behaves fine, right up until someone edits a prompt file.
+  From then on the system serves answers generated by the previous prompt, indefinitely,
+  with no error and no signal. I have seen this exact shape in production, where the
+  mitigation was a documented instruction to truncate the cache manually after any prompt
+  change — which is a process fix for an architecture defect.</p>
+  <div class="answer">
+    <p>If a change would alter the output, it belongs in the cache key. In practice that
+    means the composed prompt content, the trust boundary, the model tier, and the
+    caller-specific inputs that personalise the answer. Anything less and the cache is a
+    correctness risk wearing a performance disguise.</p>
+  </div>
+
+  <h2>Evaluation is a release gate, not a dashboard</h2>
+  <p>A golden-query set — real questions with known-good answers — run before release
+  turns "the demo looked fine" into a pass/fail. It does not need to be large. It needs
+  to be representative, versioned alongside the prompts, and blocking.</p>
+  <p>The complement is a permanent regression test for every defect ever fixed. When a
+  wrong answer is corrected, the case that produced it becomes a test. Over a year that
+  set becomes the most valuable artefact in the system, because it encodes every way
+  this particular domain has already surprised you.</p>
+
+  <h2>Advisory until signed off</h2>
+  <p>For any output that affects a person — a screening result, a risk flag, an
+  eligibility decision — the architectural default should be that the system produces an
+  <em>advisory</em> result and a human confirms it. That means the data model needs a
+  review state from day one, and review rows are marked resolved rather than deleted, so
+  the audit trail survives.</p>
+  <p>Retrofitting this is expensive. Designing for it costs one column and one queue.</p>
+
+  <h2>Design decisions and their tradeoffs</h2>
+  <table>
+    <thead><tr><th>Decision</th><th>Choose this when</th><th>Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Cache-first context build</td><td>Context assembly is expensive and answers are reusable</td><td>Cache invalidation becomes a correctness concern</td></tr>
+      <tr><td>Fail-soft enrichment</td><td>A secondary field should not fail the whole response</td><td>Gaps become invisible unless surfaced deliberately</td></tr>
+      <tr><td>Renormalise on missing inputs</td><td>A score must not imply data that is absent</td><td>Scores move as coverage changes; needs explaining</td></tr>
+      <tr><td>Web-grounded retrieval</td><td>The answer depends on facts outside the enterprise</td><td>A new egress path, and a new review surface</td></tr>
+    </tbody>
+  </table>
+
+  <h2>When not to use RAG</h2>
+  <ul>
+    <li><strong>The question is deterministic.</strong> If it can be answered by a query,
+    answer it by a query. A cascade of exact, deterministic responses with the language
+    model only as fallback is faster, cheaper and auditable.</li>
+    <li><strong>The corpus is small and stable.</strong> Fitting it in context is simpler
+    than operating a retrieval stack.</li>
+    <li><strong>The output must be exactly reproducible.</strong> Regulatory reporting
+    wants a query and a lineage, not a generated paragraph.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>Production RAG in a regulated environment is mostly not a retrieval problem. Get the
+  grounding contract, the cache identity, the evaluation gate and the sign-off model
+  right, and the retrieval layer becomes the straightforward part. Get them wrong and the
+  retrieval can be excellent while the system remains undeployable.</p>
+
+  <div class="related">
+    <h2>Related</h2>
+    <ul>
+      <li><a href="../enterprise-ai-architecture/">Enterprise AI Architecture</a> — the control plane a RAG system has to fit into.</li>
+      <li><a href="../agentic-ai/">Agentic AI</a> — when retrieval alone is not enough.</li>
+      <li><a href="../">Back to the portfolio</a> — enterprise outcomes, platforms shipped and the builds behind them.</li>
+    </ul>
+  </div>
+  <p style="margin-top:36px"><strong>Building an enterprise AI or GenAI platform?</strong>
+  <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a> ·
+  <a href="https://www.linkedin.com/in/parameshwaran-iyer-790b2131/" target="_blank" rel="noopener">LinkedIn</a></p>
+</article>
+</main>
+</div>
+<footer class="wrap">
+  <p>Written from first-hand enterprise delivery. Client names and confidential
+  architecture details are deliberately omitted.</p>
+</footer>
+</body>
+</html>
