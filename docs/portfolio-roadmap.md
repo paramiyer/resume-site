@@ -15,7 +15,7 @@ inventory does not support.
 | 3 | AI-search / GEO content architecture | **Complete** |
 | 4 | Authority & case studies | **Complete** |
 | 5 | LinkedIn + GitHub + entity alignment | **Complete** |
-| 6 | Measurement, indexing & content system | Not started |
+| 6 | Measurement, indexing & content system | **Complete** |
 | 7 | Full QA, search validation & hiring-market test | Not started |
 
 ---
@@ -517,8 +517,93 @@ named entity risks, GitHub profile and README recommendations, priority actions
 from Phase 2: the site has no analytics by design ("no trackers" in the footer), so
 Phase 6 must decide whether Search Console and Bing query data alone are sufficient.
 
+---
+
+## Phase 6 — Measurement, indexing and content system
+
+**Status:** complete. Detail in `docs/search-strategy.md`.
+
+### Decisions made
+
+- **Analytics: keep the no-tracker stance** — the Phase 2 open question, now closed.
+  Search Console and Bing answer every question this programme actually asks (which
+  queries surface the site, which pages get impressions, whether intent matches
+  positioning, branded vs non-branded) **without observing visitors at all**. What is
+  lost is on-page engagement, which is not the success metric. If engagement data is
+  ever wanted, use a cookieless option — not Google Analytics, which would contradict
+  the footer and add a third-party request to every page.
+- **No fabricated tokens or keys.** GSC and Bing verification points are documented
+  with exact insertion locations. IndexNow is documented but **deliberately not
+  generated** — it is a one-command, self-issued key that should be owned by Param.
+- **Two clusters left deliberately orphaned.** Writing them now would produce the
+  filler the brief prohibits.
+- **Ranking is not promised anywhere.** The document opens by stating why: a
+  two-week-old site with no backlinks on a shared-domain project path.
+
+### Files created
+
+`docs/search-strategy.md` — clusters, orphans, backlog, indexing steps, analytics
+decision, custom-domain case, measurement framework
+`content/_template.mjs` — reusable page template with a pre-publication
+confidentiality checklist. Verified it is **not** picked up as a route
+
+### Query cluster coverage
+
+| Cluster | Target | State |
+|---|---|---|
+| A1 principal AI architect UAE | `/about/` | weak — reads as a bio, not an answer |
+| A2 AI transformation GCC | — | **orphaned by choice** |
+| A3 title variants | — | **orphaned by choice** — belongs on LinkedIn |
+| B1 enterprise RAG | `/enterprise-rag/` | strong |
+| B2 agentic AI | `/agentic-ai/` | strong |
+| B3 MCP architecture | `/agentic-ai/` | moderate — deserves its own page |
+| B4 lakehouse vs serving layer | — | **orphaned; evidence exists — write it** |
+| B5 H3 geospatial | case study | strong but narrow |
+| B6 AI governance | `/enterprise-ai-architecture/` | moderate — buried in a subsection |
+
+### The highest-leverage recommendation
+
+**A custom domain.** `paramiyer.github.io/resume-site/` dilutes authority across a
+shared domain and reads as a side project rather than a professional presence — a
+mismatch between the positioning and its container. Roughly $10–50/year.
+
+Migration is already designed for: everything absolute derives from the `SITE`
+constant, so changing it plus adding a `CNAME` moves metadata, structured data and
+the sitemap together. **Do it before requesting indexing** — GitHub Pages cannot
+serve the redirects a later migration would need.
+
+### Verification
+
+| Check | Result |
+|---|---|
+| Template excluded from routing | yes — page count unchanged at 9 |
+| Cluster → page mapping | 6 mapped, 3 orphaned and stated |
+| Generators | exit 0, idempotent |
+| Third-party requests | still zero |
+
+### Unresolved questions
+
+1. Carried since Phase 1: **job-title conflict** across site, resume and LinkedIn.
+   This is the last integrity issue outstanding and should close in Phase 7.
+2. Carried: two dead product links.
+3. **Custom domain** — decision needed before indexing is requested.
+
+### Manual actions required
+
+1. Buy and configure a custom domain *(recommended before step 2)*
+2. Google Search Console — verify, submit sitemap, request indexing
+3. Bing Webmaster — import from GSC
+4. IndexNow key — optional, low value at this size
+5. All Phase 5 GitHub and LinkedIn actions
+
+### Next phase
+
+**Phase 7 — Full QA, search validation and hiring-market test.** Adversarial: the
+brief asks for genuine weakness-hunting and explicitly forbids awarding 10/10 by
+default.
+
 ### Recommended next command
 
 ```
-Proceed with Phase 6
+Proceed with Phase 7
 ```
