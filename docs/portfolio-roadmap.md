@@ -16,7 +16,7 @@ inventory does not support.
 | 4 | Authority & case studies | **Complete** |
 | 5 | LinkedIn + GitHub + entity alignment | **Complete** |
 | 6 | Measurement, indexing & content system | **Complete** |
-| 7 | Full QA, search validation & hiring-market test | Not started |
+| 7 | Full QA, search validation & hiring-market test | **Complete** |
 
 ---
 
@@ -602,8 +602,59 @@ serve the redirects a later migration would need.
 brief asks for genuine weakness-hunting and explicitly forbids awarding 10/10 by
 default.
 
+---
+
+## Phase 7 — Full QA, search validation and hiring-market test
+
+**Status:** complete. Scores and manual actions in `docs/final-audit.md`.
+
+### Added
+
+- **`scripts/validate.mjs`** — the repo had no tests at all. 16 structural
+  invariants: unique metadata, canonical correctness, one `h1`, JSON-LD parsing,
+  **no `jobTitle`/`worksFor` assertion**, internal-link resolution, client-identifier
+  scan, product-count consistency. **Now runs in CI and gates the deploy.**
+
+### Defects found and fixed
+
+1. **Light-mode contrast failed WCAG AA.** `--dim` on background measured 4.35:1
+   against a 4.5 requirement, affecting bylines, breadcrumbs, footer and language
+   key. Phase 1 had claimed "real contrast ratios" without measuring. Fixed to
+   4.66:1; all pairs now pass in both themes.
+2. **Proof below the fold at 1280×800.** A 10-second recruiter scan saw positioning
+   and no evidence. Hero tightened ~80px; all four tiles now clear the fold.
+
+### Results
+
+16/16 checks · 160 internal links, 0 broken · no overflow 500–1600px · homepage
+115 KB, case study 24 KB · zero third-party requests · generators idempotent.
+
+### Scores — 8 of 17 below 9, and why that is the finding
+
+Highest: AI-search readiness, technical and hands-on credibility, accessibility,
+mobile, performance, maintainability (**9**).
+Lowest: **GitHub alignment 4**, **LinkedIn alignment 5**, **entity consistency 6**.
+
+Of the eight dimensions below 9, **five are blocked on external accounts** and two
+on evidence that does not exist and must not be invented. Only content authority
+improves with more work in this repository.
+
+**The site-side programme is substantially complete; the remaining gains are
+external.** Five minutes on the GitHub profile moves the lowest score from 4 to 8.
+
+### Unresolved — carried to manual actions
+
+1. **Job-title conflict** across site, resume and LinkedIn — open since Phase 1,
+   now the last integrity issue.
+2. Two dead product links.
+3. Custom domain — decide **before** requesting indexing.
+
+### Programme status
+
+All seven phases complete. Ten routes live, self-updating weekly, validated in CI.
+
 ### Recommended next command
 
-```
-Proceed with Phase 7
-```
+Nothing further is blocked. The highest-value next step is not code — it is the
+manual action list in `docs/final-audit.md`, starting with the GitHub profile.
+When ready to write, the first five pieces are specified there.

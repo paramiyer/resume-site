@@ -9,7 +9,7 @@
 @media (prefers-color-scheme: light){
   :root{
     --bg:#f6f8fa; --panel:#ffffff; --panel-2:#f2f5f8; --line:#dde3ea;
-    --text:#111820; --muted:#55616e; --dim:#6b7681;
+    --text:#111820; --muted:#55616e; --dim:#67717d;
     --accent:#0969da; --accent-soft:rgba(9,105,218,.09);
     --good:#1a7f37;
   }
@@ -33,10 +33,10 @@ a:hover{text-decoration:underline}
 a:focus-visible,.chip:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
 
 /* ── header ─────────────────────────────────────────── */
-header{padding:64px 0 40px; text-align:center}
+header{padding:40px 0 30px; text-align:center}
 .avatar{
-  width:132px; height:132px; border-radius:50%; object-fit:cover;
-  border:3px solid var(--line); margin-bottom:20px;
+  width:108px; height:108px; border-radius:50%; object-fit:cover;
+  border:3px solid var(--line); margin-bottom:14px;
 }
 h1{margin:0 0 6px; font-size:clamp(30px,5vw,44px); letter-spacing:-.02em; font-weight:700}
 .tagline{margin:0 0 18px; color:var(--muted); font-size:clamp(15px,2.2vw,19px); font-weight:500}
@@ -57,13 +57,14 @@ h1{margin:0 0 6px; font-size:clamp(30px,5vw,44px); letter-spacing:-.02em; font-w
   100%{box-shadow:0 0 0 0 rgba(63,185,80,0)}
 }
 .hero-line{
-  max-width:640px; margin:0 auto 20px; color:var(--muted);
+  max-width:640px; margin:0 auto 16px; color:var(--muted);
   font-size:clamp(14.5px,1.9vw,16.5px); line-height:1.6;
 }
 .refreshed{color:var(--dim)}
 
 /* ── sections ───────────────────────────────────────── */
 section{margin-top:52px}
+main > section:first-child{margin-top:34px}
 h2{
   font-size:13px; text-transform:uppercase; letter-spacing:.13em;
   color:var(--muted); font-weight:700; margin:0 0 20px;
