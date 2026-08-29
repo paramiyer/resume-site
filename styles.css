@@ -293,3 +293,18 @@ footer{
 .d-text text{fill:var(--text); font-size:13px; font-family:inherit; text-anchor:middle}
 .d-note text{fill:var(--dim); font-size:11.5px; font-family:inherit; text-anchor:middle}
 .d-line path{stroke:var(--muted); stroke-width:1.5; fill:none}
+
+/* ── grouped products ───────────────────────────────── */
+.products .pgroup{
+  display:flex; align-items:baseline; gap:10px;
+  margin:26px 0 10px; font-size:14px; color:var(--text); font-weight:650;
+}
+.products .pgroup:first-child{margin-top:0}
+.products .pcount{
+  font-size:11px; color:var(--dim); border:1px solid var(--line);
+  border-radius:999px; padding:1px 8px; font-variant-numeric:tabular-nums;
+}
+.products .pnote{
+  margin:26px 0 0; padding-top:16px; border-top:1px solid var(--line);
+  font-size:13px; color:var(--dim); line-height:1.6;
+}

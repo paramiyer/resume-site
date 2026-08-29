@@ -215,27 +215,27 @@ const swatch = (lang) =>
  * rather than as project cards, so nothing appears twice on the page. */
 const PRODUCTS = [
   {
-    title: 'Prospect & Deal-Signal Monitor', tag: 'client engagement',
+    group: 'client', title: 'Prospect & Deal-Signal Monitor', tag: 'client engagement',
     blurb: 'Signal-driven prospecting and screening for corporate and investment banking relationship managers at a leading UAE bank. Scored signal feed, six-pillar entity scoring, grounded AI lead narratives and compliance screening. In production.',
   },
   {
-    title: 'Branch & ATM Network Intelligence', tag: 'client engagement',
+    group: 'client', title: 'Branch & ATM Network Intelligence', tag: 'client engagement',
     blurb: "Geospatial siting, relocation and network planning across a UAE bank's branch and ATM estate, with per-branch catchment signals and a natural-language configuration assistant. In production.",
   },
-  { repo: 'smith', tag: 'own product' },
-  { repo: 'ai-center-locator', tag: 'own product' },
+  { group: 'own', repo: 'smith', tag: 'own product' },
+  { group: 'own', repo: 'ai-center-locator', tag: 'own product' },
   {
-    title: 'Ijaba', // marketplace listing 404s as of 2026-08-29 — link removed
+    group: 'commercial', title: 'Ijaba', // marketplace listing 404s as of 2026-08-29 — link removed
 
     blurb: 'An AI-driven platform for industrial IoT analytics and insights, listed on the Azure Marketplace.',
   },
   {
-    title: 'Experience Based Repair', // Bosch page 404s as of 2026-08-29 — link removed
+    group: 'commercial', title: 'Experience Based Repair', // Bosch page 404s as of 2026-08-29 — link removed
 
     blurb: "Bosch's intelligent repair recommendation system, built from historical and expert repair knowledge.",
   },
   {
-    title: 'Agile Field Quality Monitoring', url: 'https://aws.amazon.com/solutions/case-studies/Robert-Bosch-GmbH-Case-Study/',
+    group: 'commercial', title: 'Agile Field Quality Monitoring', url: 'https://aws.amazon.com/solutions/case-studies/Robert-Bosch-GmbH-Case-Study/',
     blurb: 'Cloud-based predictive system for detecting and analysing field failures across connected devices and vehicles.',
   },
 ];
@@ -243,18 +243,41 @@ const PRODUCTS = [
 /* CATALOGUE keys promoted into the Products section, so renderProjects skips them. */
 const PRODUCT_REPOS = new Set(PRODUCTS.filter((p) => p.repo).map((p) => p.repo));
 
+/* Grouped deliberately. The page states "two enterprise AI products" for the bank
+ * and "7 products shipped" in the proof bar; both are true, the two being a subset
+ * of the seven. Without the grouping a reader sees 2 and 7 and assumes an error. */
+const GROUPS = [
+  { id: 'client',     label: 'Enterprise platforms delivered for clients' },
+  { id: 'own',        label: 'Products I built and run myself' },
+  { id: 'commercial', label: 'Commercial and marketplace products' },
+];
+
 function renderProducts() {
-  const items = PRODUCTS.map((p) => {
+  const item = (p) => {
     const meta = p.repo ? CATALOGUE[p.repo] : null;
     const title = meta ? meta.title : p.title;
     const blurb = meta ? meta.blurb : p.blurb;
     const head = p.url
       ? `<a href="${esc(p.url)}" target="_blank" rel="noopener"><strong>${esc(title)}</strong></a>`
       : `<strong>${esc(title)}</strong>`;
-    const tag = p.tag ? ` <span class="tag-private">${esc(p.tag)}</span>` : '';
-    return `      <li>${head}${tag} — ${esc(blurb)}</li>`;
+    return `        <li>${head} — ${esc(blurb)}</li>`;
+  };
+
+  const blocks = GROUPS.map((g) => {
+    const rows = PRODUCTS.filter((p) => p.group === g.id);
+    return `      <h3 class="pgroup">${esc(g.label)} <span class="pcount">${rows.length}</span></h3>
+      <ul class="plain">
+${rows.map(item).join('\n')}
+      </ul>`;
   }).join('\n');
-  return `<ul class="plain">\n${items}\n    </ul>`;
+
+  return `<div class="products">
+${blocks}
+      <p class="pnote">Seven in total: two enterprise platforms built for a leading UAE
+      bank, two products I build and run myself, and three commercial products taken
+      to market. Where the page says "two enterprise AI products", it means the two
+      bank platforms.</p>
+    </div>`;
 }
 
 /* Executive proof bar. Deliberately career and delivery signals only — commit
