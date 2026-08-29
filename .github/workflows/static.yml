@@ -72,7 +72,8 @@ jobs:
       - name: Stage site
         run: |
           mkdir -p _site
-          cp index.html ParamProfile.png _site/
+          cp index.html 404.html robots.txt sitemap.xml site.webmanifest \
+             favicon.svg apple-touch-icon.png og-image.png ParamProfile.png _site/
           cp -r data scripts _site/
 
       - name: Upload artifact

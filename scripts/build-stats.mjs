@@ -159,6 +159,10 @@ const OPENALEX_MAILTO = 'paramiyer@gmail.com'; // polite-pool contact, already p
 const token = process.env.GH_PAT || process.env.GITHUB_TOKEN || '';
 const HAS_PAT = Boolean(process.env.GH_PAT);
 const ACTIVITY_DAYS = 7;
+const SITE = 'https://paramiyer.github.io/resume-site/';
+
+/* Indexable routes. Phase 3 adds to this list; the sitemap follows from it. */
+const ROUTES = [''];
 
 async function gh(path) {
   const res = await fetch(`https://api.github.com${path}`, {
@@ -480,6 +484,85 @@ function renderActivity(a, refreshed) {
     </div>`;
 }
 
+/**
+ * Person / ProfilePage / WebSite graph.
+ *
+ * Deliberately NO `jobTitle` and NO `worksFor`. The positioning line is
+ * "Principal AI Architect", but the role actually held is AI Consultant, and the
+ * page says so in Career Journey. Asserting the positioning as a title in
+ * structured data would contradict the page's own content and overstate a fact.
+ * `hasOccupation` describes the occupation without claiming an employer
+ * relationship, and `description` carries the positioning as prose.
+ */
+function renderJsonLd(refreshedIso) {
+  const person = {
+    '@type': 'Person',
+    '@id': SITE + '#person',
+    name: 'Parameshwaran S Iyer',
+    alternateName: 'Parameshwaran Iyer',
+    description:
+      'Principal AI Architect and Enterprise AI Leader based in the UAE. Designs, builds and scales production AI and GenAI platforms, from enterprise strategy and architecture through to working systems.',
+    url: SITE,
+    image: SITE + 'ParamProfile.png',
+    email: 'mailto:paramiyer@gmail.com',
+    address: { '@type': 'PostalAddress', addressCountry: 'AE' },
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: 'Enterprise AI Architect',
+      occupationLocation: { '@type': 'Country', name: 'United Arab Emirates' },
+    },
+    alumniOf: [
+      { '@type': 'CollegeOrUniversity', name: 'Pennsylvania State University' },
+      { '@type': 'CollegeOrUniversity', name: 'University of Mumbai' },
+    ],
+    knowsAbout: [
+      'Enterprise AI Architecture', 'Generative AI', 'Retrieval-Augmented Generation',
+      'Agentic AI', 'AI Platforms', 'MLOps', 'Databricks', 'Data Governance',
+      'Machine Learning', 'Geospatial Analysis', 'Enterprise Architecture',
+    ],
+    sameAs: [
+      'https://www.linkedin.com/in/parameshwaran-iyer-790b2131/',
+      'https://github.com/paramiyer',
+      'https://scholar.google.com/citations?user=4xdbJC8AAAAJ',
+      'https://openalex.org/A5045119494',
+    ],
+  };
+
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      person,
+      {
+        '@type': 'ProfilePage',
+        '@id': SITE + '#profilepage',
+        url: SITE,
+        name: 'Parameshwaran Iyer | Principal AI Architect & Enterprise AI Leader',
+        mainEntity: { '@id': SITE + '#person' },
+        dateModified: refreshedIso.slice(0, 10),   // date only — a full timestamp would break idempotence
+        inLanguage: 'en',
+        isPartOf: { '@id': SITE + '#website' },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': SITE + '#website',
+        url: SITE,
+        name: 'Parameshwaran Iyer',
+        inLanguage: 'en',
+        author: { '@id': SITE + '#person' },
+      },
+    ],
+  };
+
+  return `<script type="application/ld+json">\n${JSON.stringify(graph, null, 2)}\n</` + `script>`;
+}
+
+function renderSitemap(refreshedIso) {
+  const urls = ROUTES.map(
+    (r) => `  <url>\n    <loc>${SITE}${r}</loc>\n    <lastmod>${refreshedIso.slice(0, 10)}</lastmod>\n  </url>`
+  ).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+}
+
 /* ── injection ───────────────────────────────────────────────────────────── */
 
 function inject(html, marker, body) {
@@ -591,11 +674,13 @@ async function main() {
   html = inject(html, 'CAPABILITY', renderCapability(byCapability));
   html = inject(html, 'PROJECTS', renderProjects(items));
   html = inject(html, 'LANGUAGES', renderLanguages(totals));
+  html = inject(html, 'JSONLD', renderJsonLd(snapshot.generated_at));
   html = inject(html, 'ACTIVITY', renderActivity(activity, refreshed));
   html = inject(html, 'PRODUCTS', renderProducts());
   html = inject(html, 'CITATIONS', renderCitations(citations));
   html = inject(html, 'REFRESHED', `<span class="refreshed">last refresh ${refreshed}</span>`);
   await writeFile(join(ROOT, 'index.html'), html);
+  await writeFile(join(ROOT, 'sitemap.xml'), renderSitemap(snapshot.generated_at));
 
   console.log(
     `ok — ${items.length} projects (${publicCount} public), ${capabilityCount} capability areas, ` +

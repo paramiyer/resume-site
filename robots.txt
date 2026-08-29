@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://paramiyer.github.io/resume-site/sitemap.xml

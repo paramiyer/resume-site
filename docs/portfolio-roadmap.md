@@ -11,7 +11,7 @@ inventory does not support.
 |---|---|---|
 | 0 | Baseline audit & evidence inventory | **Complete — not committed** |
 | 1 | Positioning & information architecture | **Complete** |
-| 2 | Technical SEO foundation | Not started |
+| 2 | Technical SEO foundation | **Complete** |
 | 3 | AI-search / GEO content architecture | Not started |
 | 4 | Authority & case studies | Not started |
 | 5 | LinkedIn + GitHub + entity alignment | Not started |
@@ -181,8 +181,83 @@ None.
 **Phase 2 — Technical SEO foundation.** Nothing blocks it. Phase 2 must also settle
 the multi-page architecture question before Phase 3 can create routes.
 
+---
+
+## Phase 2 — Technical SEO foundation
+
+**Status:** complete. Detail in `docs/technical-seo.md`.
+
+### Decisions made
+
+- **No framework migration.** The multi-page question Phase 3 depends on is
+  settled: extend the existing generator into a ~150-line layout/pages builder,
+  keeping zero dependencies. Reasoning and revisit triggers in `technical-seo.md`.
+- **No `jobTitle`, no `worksFor` in structured data.** The positioning is
+  Principal AI Architect; the role held is AI Consultant, and the page says so.
+  Asserting the positioning as a title would contradict the page and break the
+  integrity rule. `hasOccupation` + `description` carry it accurately instead.
+- **`docs/` excluded by absence, not by robots.** The workflow stages an explicit
+  file list, so internal docs are never deployed.
+- **OG image generated locally, not in CI.** Chrome is unavailable on the runner
+  and the card changes only when positioning does.
+- **Date-only `dateModified` and `lastmod`** — full timestamps would change every
+  run and break generator idempotence, which the weekly job relies on.
+
+### Files created
+
+`robots.txt` · `sitemap.xml` *(generated)* · `site.webmanifest` · `404.html`
+· `favicon.svg` · `apple-touch-icon.png` · `og-image.png` · `scripts/og-card.html`
+· `docs/technical-seo.md`
+
+### Files changed
+
+- `index.html` — canonical, theme-color, icons, manifest, 11 OpenGraph tags,
+  4 Twitter tags, `GEN:JSONLD` block, skip link, `<main id="main">`, avatar
+  `width`/`height`/`fetchpriority`
+- `scripts/build-stats.mjs` — `SITE`, `ROUTES`, `renderJsonLd()`, `renderSitemap()`
+- `.github/workflows/static.yml` — staging list extended to the new assets
+
+### Verification
+
+| Check | Result |
+|---|---|
+| Generators | exit 0 |
+| Idempotence | `index.html` **and** `sitemap.xml` byte-identical on re-run |
+| JSON-LD | parses; 3 nodes — Person, ProfilePage, WebSite |
+| Integrity check | `jobTitle` absent, `worksFor` absent — asserted by test |
+| `sameAs` | 4 profiles, **all HTTP 200** |
+| External links | no 404s |
+| Heading order | h1 → h2 → h3, no skips |
+
+### Assumptions
+
+- Canonical origin stays `paramiyer.github.io/resume-site/`. A custom domain
+  would need `SITE` updated plus a `CNAME` in the staging list.
+
+### Unresolved questions
+
+1. Carried from Phase 1: **resume still contradicts the site** on three titles.
+2. Carried: dead product links — replacements or leave unlinked?
+3. **`og-image.png` regeneration is manual.** Acceptable now; if positioning
+   changes often, script it.
+4. **No analytics.** The footer says "no trackers" — a deliberate stance, but it
+   means Phase 6 has no first-party engagement data. Search Console and Bing give
+   query and impression data without tracking visitors; decide in Phase 6 whether
+   that is sufficient.
+
+### Manual actions required
+
+- None yet. Verification tokens are Phase 6; their exact insertion points are
+  documented in `technical-seo.md`.
+
+### Next phase
+
+**Phase 3 — AI-search / GEO content architecture.** Unblocked: the builder
+decision is made and `ROUTES` already drives the sitemap. Phase 3 should build the
+layout/pages builder first, then the first expertise pages.
+
 ### Recommended next command
 
 ```
-Proceed with Phase 2
+Proceed with Phase 3
 ```
