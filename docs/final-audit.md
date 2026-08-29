@@ -157,8 +157,9 @@ Nothing below was performed. Ordered by value per minute.
 
 | # | Action | Effort | Moves |
 |---|---|---|---|
-| 1 | **GitHub profile**: name, bio, location, **Website** | 5 min | 12: 4 → 8 |
-| 2 | **Resolve the job-title conflict** across resume and LinkedIn | 30 min | 10: 6 → 9 |
+| ~~1~~ | ~~**GitHub profile**: name, bio, location, **Website**~~ — **DONE 2026-08-29**, verified via api.github.com | — | 12: 4 → 8 |
+| 2 | **Remove duplicate LinkedIn entries** (Next50 ×2, Bosch ×4) — see `linkedin-strategy.md` | 15 min | 10 |
+| 3 | **Align the SITE to LinkedIn+resume** on ZainTECH and Next50 titles; decide Bosch | 30 min | 10: 6 → 9 |
 | 3 | **LinkedIn headline + About** (`linkedin-strategy.md`) | 20 min | 11: 5 → 8 |
 | 4 | **Custom domain** + `CNAME`, update `SITE` | 1 hr | 8: 8 → 9 |
 | 5 | **Google Search Console** — verify, submit sitemap | 15 min | indexing |

@@ -113,13 +113,49 @@ concealment:
 - The **career break** should stay visible and be labelled plainly. An unexplained
   gap invites worse assumptions than a stated one.
 
-### Title consistency — open issue
+### Title consistency — measured, 2026-08-29
 
-Your portfolio and your resume currently disagree on three employers' titles
-(ZainTECH, ADQ/Next50, Bosch). Both documents are public. **LinkedIn is the third
-surface, and it decides which of the two looks like the error.** Resolve this before
-any authority push. You chose the site's titles as authoritative; LinkedIn and the
-resume should follow.
+Read directly from the live profile. The Phase 5 assumption — *"the site's titles are
+authoritative; LinkedIn and the resume should follow"* — is **wrong, and backwards**.
+The site consistently carries the individual-contributor half of a dual title while
+LinkedIn and the resume carry the leadership half.
+
+| Employer | LinkedIn (live) | Site | Resume |
+|---|---|---|---|
+| Whiteshield | AI/ML Delivery Lead | AI Consultant | AI Consultant |
+| Contango | Associate Director of Technology | Associate Director, Data, Digital & Technology | Associate Director – Data, Digital & Technology |
+| ZainTECH | **Head of Data Science**, Principal Data Scientist | Principal Data Scientist | **Head of Data Science** – AI |
+| ADQ / Next50 | **Director Data Science**, Principal Data Scientist | Principal Data Scientist | **Director, Data Science** |
+| Careem | Data Science Manager, Lead Data Scientist | Lead Data Scientist | Lead Data Scientist / Data Science Manager |
+| Bosch | Director Data Science & ML Engineering / Head of Data Science | Sr Principal Data Scientist | **Chief Expert Data Science** |
+
+Two surfaces out of three already agree on ZainTECH and Next50. **The site is the
+outlier and the site is what should change** — and it is the surface I control, which
+makes this the cheap fix rather than the expensive one.
+
+Bosch is the genuine unknown: three surfaces, three different names, none shared.
+Needs a human decision, not a merge.
+
+### Structural defects on LinkedIn — higher priority than any wording
+
+These are objectively wrong, not judgement calls, and a recruiter sees them first:
+
+1. **Next50 is listed twice** with overlapping dates — "NEXT50, Jul 2020–Feb 2023"
+   and "Next50.AI (ADQ Company), Jun 2020–Feb 2023". One is redundant.
+2. **Bosch is listed four times** across overlapping ranges (2012–2020, 2015–2020,
+   2017–2019, 2012–2019). The intended shape is one Bosch entry with nested roles;
+   what renders is a jumble that makes an 8-year tenure look like four short jobs —
+   the exact job-hopping perception the positioning is meant to correct.
+
+Fixing the duplicates is worth more than any headline rewrite. Do it first.
+
+### About — leave alone
+
+The live About is already strong and is **not** the doc's version. It opens
+"I'm hands-on again…" and closes "hands-on, technical AI leadership roles where I'm
+still building, not just directing." That closing line does pull classification down
+a level. But it is a statement of what Param actually wants, so it is his call to
+change, not a defect to correct.
 
 ---
 
