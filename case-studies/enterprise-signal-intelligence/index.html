@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Signal Intelligence for a Leading UAE Bank | Parameshwaran Iyer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Taking generative AI into production inside a bank: grounding contracts, scored signal intelligence, compliance screening that stays advisory until an analyst signs off, and the control plane that made release possible.">
+<link rel="canonical" href="https://paramiyer.github.io/resume-site/case-studies/enterprise-signal-intelligence/">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../styles.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Parameshwaran Iyer">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://paramiyer.github.io/resume-site/case-studies/enterprise-signal-intelligence/">
+<meta property="og:title" content="Signal Intelligence for a Leading UAE Bank">
+<meta property="og:description" content="Taking generative AI into production inside a bank: grounding contracts, scored signal intelligence, compliance screening that stays advisory until an analyst signs off, and the control plane that made release possible.">
+<meta property="og:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Signal Intelligence for a Leading UAE Bank">
+<meta name="twitter:description" content="Taking generative AI into production inside a bank: grounding contracts, scored signal intelligence, compliance screening that stays advisory until an analyst signs off, and the control plane that made release possible.">
+<meta name="twitter:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://paramiyer.github.io/resume-site/case-studies/enterprise-signal-intelligence/#article",
+      "headline": "Signal Intelligence for a Leading UAE Bank",
+      "description": "Taking generative AI into production inside a bank: grounding contracts, scored signal intelligence, compliance screening that stays advisory until an analyst signs off, and the control plane that made release possible.",
+      "url": "https://paramiyer.github.io/resume-site/case-studies/enterprise-signal-intelligence/",
+      "inLanguage": "en",
+      "datePublished": "2026-08-29",
+      "dateModified": "29 Aug 2026",
+      "author": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "publisher": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "mainEntityOfPage": "https://paramiyer.github.io/resume-site/case-studies/enterprise-signal-intelligence/",
+      "about": [
+        "Generative AI",
+        "Retrieval-Augmented Generation",
+        "AI Governance"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://paramiyer.github.io/resume-site/case-studies/enterprise-signal-intelligence/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://paramiyer.github.io/resume-site/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Case Studies",
+          "item": "https://paramiyer.github.io/resume-site/case-studies/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Signal intelligence for a bank",
+          "item": "https://paramiyer.github.io/resume-site/case-studies/enterprise-signal-intelligence/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="../../">Parameshwaran Iyer</a>
+  <div class="nav-links">
+    <a href="../../">Home</a>
+    <a href="../../enterprise-ai-architecture/">Enterprise AI Architecture</a>
+    <a href="../../enterprise-rag/">Production RAG</a>
+    <a href="../../agentic-ai/">Agentic AI</a>
+    <a href="../../case-studies/">Case Studies</a>
+    <a href="../../about/">About</a>
+  </div>
+</nav>
+<div class="wrap">
+<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="../../">Home</a> · <a href="../../case-studies/">Case Studies</a> · Signal intelligence for a bank</p>
+  <h1>Production GenAI for corporate banking: signal intelligence</h1>
+  <p class="byline">By Parameshwaran Iyer · Updated 29 Aug 2026</p>
+
+  <div class="answer">
+    <p><strong>An AI platform that tells relationship managers which companies to
+    approach, and why — in production at a leading UAE bank.</strong> The hard part was
+    never the model. It was making generated output defensible enough for a regulated
+    institution to act on.</p>
+  </div>
+
+  <h2>Context</h2>
+  <p>Corporate and investment banking relationship managers work a large universe of
+  companies with limited attention. The commercial question is which companies deserve
+  attention this week, and what to say when the call happens.</p>
+
+  <h2>Business problem</h2>
+  <p>Signals that indicate opportunity — funding, expansion, distress, leadership change —
+  are scattered across sources of wildly differing reliability. Reading them manually does
+  not scale, and a naive AI summary of a news feed is not something a bank can act on.</p>
+
+  <h2>Constraints</h2>
+  <ul>
+    <li>Regulated environment: every output touching a customer needs an audit trail.</li>
+    <li>Generated narratives must be traceable to source, not plausible-sounding.</li>
+    <li>Screening outcomes cannot be automated decisions.</li>
+    <li>Latency low enough for interactive use by front-line staff.</li>
+  </ul>
+
+  <h2>My role</h2>
+  <p>Architecture and delivery, end to end — data platform through to production go-live,
+  across a multi-repository estate covering services, a front end, the ETL platform and a
+  gateway. I owned the architecture decisions and the engineering standards, and worked
+  in the codebase throughout.</p>
+
+  <h2>Architecture</h2>
+  <p>Four layers, as described in
+  <a href="../../enterprise-ai-architecture/">enterprise AI architecture</a>:</p>
+  <ul>
+    <li><strong>Governed data</strong> — a lakehouse with layered refinement, catalogue-level
+    access control, a canonical source registry and a single sanctioned write path.</li>
+    <li><strong>Scoring</strong> — signals scored across weighted dimensions with a
+    source-credibility rating, and a multi-pillar company score with explicit verdict
+    bands. Missing inputs renormalise rather than defaulting, so a score never implies
+    data that is absent.</li>
+    <li><strong>Generation</strong> — grounded narratives built from a context pack
+    assembled from known-good internal sources, under an explicit grounding contract.</li>
+    <li><strong>Control plane</strong> — a reusable guardrail library, controls on data
+    leaving the boundary, default-deny route access enforced at boot, and human review
+    queues for anything advisory.</li>
+  </ul>
+
+  <h2>Key decisions</h2>
+  <h3>Grounding contract over model capability</h3>
+  <p>The system is designed on the premise that the model has never heard of these
+  companies. Every claim must trace to injected context. This costs work in context
+  assembly and buys the ability to answer "where did this come from" — which is the
+  question that decides whether a bank can use it.</p>
+  <h3>Advisory until signed off</h3>
+  <p>Compliance screening produces a result marked provisional. An analyst confirms it.
+  The review state is in the data model, and rows are marked resolved rather than deleted,
+  so the audit trail survives.</p>
+  <h3>Deterministic before generative</h3>
+  <p>The assistant tries a cascade of exact, deterministic responders first and only
+  composes with a model when none match. Faster, cheaper and explainable for the majority
+  of questions.</p>
+  <h3>Evaluation as a release gate</h3>
+  <p>A golden-query set gates production readiness, and every defect ever fixed became a
+  permanent regression test.</p>
+
+  <h2>Tradeoffs</h2>
+  <table>
+    <thead><tr><th>Decision</th><th>Bought</th><th>Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Cache-first context assembly</td><td>Interactive latency at enterprise volume</td><td>Cache identity becomes a correctness concern, not a performance one</td></tr>
+      <tr><td>Fail-soft enrichment</td><td>A secondary field cannot fail the whole response</td><td>Gaps are invisible unless surfaced deliberately</td></tr>
+      <tr><td>Renormalise on missing data</td><td>Scores never imply absent evidence</td><td>Scores move as coverage improves, which needs explaining</td></tr>
+      <tr><td>Human sign-off on screening</td><td>Defensible in a regulated setting</td><td>Throughput is bounded by analyst time</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Governance</h2>
+  <p>A ten-control guardrail library reused across the estate, enforced by a conformance
+  test that requires a live invocation at every model call site — not merely an import.
+  Sensitive data is scrubbed before any external model call. Access is default-deny and
+  the service refuses to start if a route is uncatalogued.</p>
+
+  <h2>Outcome</h2>
+  <p>In production, serving corporate and investment banking. One of two enterprise AI
+  products I took end-to-end for this client.</p>
+
+  <h2>Lessons</h2>
+  <ul>
+    <li><strong>A cache key without the prompt in it is a correctness bug.</strong> Edit a
+    prompt and the system serves the old one indefinitely, silently.</li>
+    <li><strong>Safety defaults must fail closed.</strong> A mock-data flag defaulting to
+    on served fabricated data in production because production set neither the variable
+    nor the secret.</li>
+    <li><strong>Docs drift within months.</strong> Treat code, decision records and recent
+    history as authoritative, and say so.</li>
+  </ul>
+
+  <div class="related">
+    <h2>Related</h2>
+    <ul>
+      <li><a href="../../enterprise-rag/">Production RAG</a> — the patterns this build is drawn from.</li>
+      <li><a href="../../enterprise-ai-architecture/">Enterprise AI Architecture</a> — the four layers, and the one that decides release.</li>
+      <li><a href="../../">Back to the portfolio</a> — enterprise outcomes, platforms shipped and the builds behind them.</li>
+    </ul>
+  </div>
+  <p style="margin-top:36px"><strong>Building an enterprise AI or GenAI platform?</strong>
+  <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a> ·
+  <a href="https://www.linkedin.com/in/parameshwaran-iyer-790b2131/" target="_blank" rel="noopener">LinkedIn</a></p>
+</article>
+</main>
+</div>
+<footer class="wrap">
+  <p>Written from first-hand enterprise delivery. Client names and confidential
+  architecture details are deliberately omitted.</p>
+</footer>
+</body>
+</html>

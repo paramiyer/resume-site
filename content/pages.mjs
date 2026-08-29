@@ -17,6 +17,7 @@ export const NAV = [
   { slug: 'enterprise-ai-architecture', label: 'Enterprise AI Architecture' },
   { slug: 'enterprise-rag', label: 'Production RAG' },
   { slug: 'agentic-ai', label: 'Agentic AI' },
+  { slug: 'case-studies', label: 'Case Studies' },
   { slug: 'about', label: 'About' },
 ];
 

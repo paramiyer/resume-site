@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Product With Its Own MCP Server | Parameshwaran Iyer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A ticketing product where PostgREST generates the REST API from the schema, row-level security carries authorisation, and the web app and an MCP server are two clients of the same API.">
+<link rel="canonical" href="https://paramiyer.github.io/resume-site/case-studies/mcp-product/">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../styles.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Parameshwaran Iyer">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://paramiyer.github.io/resume-site/case-studies/mcp-product/">
+<meta property="og:title" content="A Product With Its Own MCP Server">
+<meta property="og:description" content="A ticketing product where PostgREST generates the REST API from the schema, row-level security carries authorisation, and the web app and an MCP server are two clients of the same API.">
+<meta property="og:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A Product With Its Own MCP Server">
+<meta name="twitter:description" content="A ticketing product where PostgREST generates the REST API from the schema, row-level security carries authorisation, and the web app and an MCP server are two clients of the same API.">
+<meta name="twitter:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://paramiyer.github.io/resume-site/case-studies/mcp-product/#article",
+      "headline": "A Product With Its Own MCP Server",
+      "description": "A ticketing product where PostgREST generates the REST API from the schema, row-level security carries authorisation, and the web app and an MCP server are two clients of the same API.",
+      "url": "https://paramiyer.github.io/resume-site/case-studies/mcp-product/",
+      "inLanguage": "en",
+      "datePublished": "2026-08-29",
+      "dateModified": "29 Aug 2026",
+      "author": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "publisher": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "mainEntityOfPage": "https://paramiyer.github.io/resume-site/case-studies/mcp-product/",
+      "about": [
+        "Model Context Protocol",
+        "Full-Stack Product Engineering",
+        "API Design"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://paramiyer.github.io/resume-site/case-studies/mcp-product/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://paramiyer.github.io/resume-site/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Case Studies",
+          "item": "https://paramiyer.github.io/resume-site/case-studies/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "MCP-driven product",
+          "item": "https://paramiyer.github.io/resume-site/case-studies/mcp-product/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="../../">Parameshwaran Iyer</a>
+  <div class="nav-links">
+    <a href="../../">Home</a>
+    <a href="../../enterprise-ai-architecture/">Enterprise AI Architecture</a>
+    <a href="../../enterprise-rag/">Production RAG</a>
+    <a href="../../agentic-ai/">Agentic AI</a>
+    <a href="../../case-studies/">Case Studies</a>
+    <a href="../../about/">About</a>
+  </div>
+</nav>
+<div class="wrap">
+<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="../../">Home</a> · <a href="../../case-studies/">Case Studies</a> · MCP-driven product</p>
+  <h1>When the database is the API, and an AI client is a first-class user</h1>
+  <p class="byline">By Parameshwaran Iyer · Updated 29 Aug 2026</p>
+
+  <div class="answer">
+    <p><strong>Choosing a stack where the database generates the API removes most of what
+    would otherwise be written by hand.</strong> This ticketing product — board, comment
+    threads, subtasks, and an MCP server so it can be driven from an AI client — came
+    together in an evening, and is in daily use.</p>
+  </div>
+
+  <h2>Context</h2>
+  <p>My own product, so described in full. I needed ticketing I could drive from an AI
+  client while working, rather than switching tools to record what I had just decided.</p>
+
+  <h2>Architecture</h2>
+  <p>The load-bearing decision is that there is no hand-written CRUD layer:</p>
+  <ul>
+    <li>Product tables live in a dedicated Postgres schema.</li>
+    <li><strong>PostgREST generates the REST API from that schema.</strong></li>
+    <li><strong>Row-level security carries authorisation</strong> — 20 policies, enforced
+    by the database rather than by application code.</li>
+    <li>The web application and the MCP server are <strong>two clients of the same
+    API</strong>, so the MCP server adds tool definitions and almost no logic.</li>
+  </ul>
+
+  <h2>Why this is fast, and it is not mainly the AI</h2>
+  <p>A ticketing app is mostly CRUD plus authorisation. Conventionally that means
+  controllers per entity, serializers, auth middleware, per-endpoint permission checks and
+  an ORM layer — thousands of lines for eight tables. Here the schema <em>is</em> the API
+  and the policies <em>are</em> the authorisation model. Generation made writing the SQL
+  fast; the architecture made that SQL sufficient.</p>
+
+  <h2>Scale and delivery</h2>
+  <p>Eight tables, 20 row-level security policies, an MCP server, full authentication
+  flows. Ships to Vercel with preview-on-pull-request and production-on-main. In real use,
+  not a demo.</p>
+
+  <h2>Tradeoffs</h2>
+  <table>
+    <thead><tr><th>Decision</th><th>Bought</th><th>Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Database-generated API</td><td>No CRUD layer to write or keep in sync</td><td>The schema becomes the public contract; renaming is a breaking change</td></tr>
+      <tr><td>Authorisation in row-level security</td><td>One enforcement point, impossible to route around</td><td>A wrong policy fails silently by returning fewer rows, never an error</td></tr>
+      <tr><td>MCP server as a peer client</td><td>An AI client is a first-class user</td><td>Tool contracts need the same care as a public API</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Honest limitation</h2>
+  <p>Test coverage is thin relative to 20 row-level security policies, and RLS is exactly
+  where a multi-tenant bug hides silently — a wrong policy returns someone else's rows
+  rather than an error. Cross-tenant policy tests are the next work, and I would rather
+  state that than let the build imply a rigour it has not yet earned.</p>
+
+  <h2>Lessons</h2>
+  <ul>
+    <li><strong>Pick the stack that deletes the work</strong>, rather than the stack you
+    can write fastest.</li>
+    <li><strong>Silent authorisation failures need tests, not review.</strong> Nothing
+    throws when a policy is wrong.</li>
+    <li><strong>An MCP server is a product surface</strong>, and deserves the same contract
+    discipline as any other API.</li>
+  </ul>
+
+  <div class="related">
+    <h2>Related</h2>
+    <ul>
+      <li><a href="../../agentic-ai/">Agentic AI</a> — why MCP changes the integration question.</li>
+      <li><a href="../../case-studies/geospatial-site-suitability/">Continental-scale site suitability</a> — the other build I own outright.</li>
+      <li><a href="../../">Back to the portfolio</a> — enterprise outcomes, platforms shipped and the builds behind them.</li>
+    </ul>
+  </div>
+  <p style="margin-top:36px"><strong>Building an enterprise AI or GenAI platform?</strong>
+  <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a> ·
+  <a href="https://www.linkedin.com/in/parameshwaran-iyer-790b2131/" target="_blank" rel="noopener">LinkedIn</a></p>
+</article>
+</main>
+</div>
+<footer class="wrap">
+  <p>Written from first-hand enterprise delivery. Client names and confidential
+  architecture details are deliberately omitted.</p>
+</footer>
+</body>
+</html>

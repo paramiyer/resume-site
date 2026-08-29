@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coverage-Aware Reuse for a Multi-Agent Platform | Parameshwaran Iyer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A multi-agent analytics platform re-fetched everything on every run. Coverage-aware reuse cut repeat runs to zero re-fetch, and owner-scoped identity made the platform safe for a second customer.">
+<link rel="canonical" href="https://paramiyer.github.io/resume-site/case-studies/agentic-data-reuse/">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../styles.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Parameshwaran Iyer">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://paramiyer.github.io/resume-site/case-studies/agentic-data-reuse/">
+<meta property="og:title" content="Coverage-Aware Reuse for a Multi-Agent Platform">
+<meta property="og:description" content="A multi-agent analytics platform re-fetched everything on every run. Coverage-aware reuse cut repeat runs to zero re-fetch, and owner-scoped identity made the platform safe for a second customer.">
+<meta property="og:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coverage-Aware Reuse for a Multi-Agent Platform">
+<meta name="twitter:description" content="A multi-agent analytics platform re-fetched everything on every run. Coverage-aware reuse cut repeat runs to zero re-fetch, and owner-scoped identity made the platform safe for a second customer.">
+<meta name="twitter:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://paramiyer.github.io/resume-site/case-studies/agentic-data-reuse/#article",
+      "headline": "Coverage-Aware Reuse for a Multi-Agent Platform",
+      "description": "A multi-agent analytics platform re-fetched everything on every run. Coverage-aware reuse cut repeat runs to zero re-fetch, and owner-scoped identity made the platform safe for a second customer.",
+      "url": "https://paramiyer.github.io/resume-site/case-studies/agentic-data-reuse/",
+      "inLanguage": "en",
+      "datePublished": "2026-08-29",
+      "dateModified": "29 Aug 2026",
+      "author": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "publisher": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "mainEntityOfPage": "https://paramiyer.github.io/resume-site/case-studies/agentic-data-reuse/",
+      "about": [
+        "Agentic AI",
+        "AI Platforms",
+        "Data Architecture"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://paramiyer.github.io/resume-site/case-studies/agentic-data-reuse/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://paramiyer.github.io/resume-site/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Case Studies",
+          "item": "https://paramiyer.github.io/resume-site/case-studies/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Agentic data reuse",
+          "item": "https://paramiyer.github.io/resume-site/case-studies/agentic-data-reuse/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="../../">Parameshwaran Iyer</a>
+  <div class="nav-links">
+    <a href="../../">Home</a>
+    <a href="../../enterprise-ai-architecture/">Enterprise AI Architecture</a>
+    <a href="../../enterprise-rag/">Production RAG</a>
+    <a href="../../agentic-ai/">Agentic AI</a>
+    <a href="../../case-studies/">Case Studies</a>
+    <a href="../../about/">About</a>
+  </div>
+</nav>
+<div class="wrap">
+<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="../../">Home</a> · <a href="../../case-studies/">Case Studies</a> · Agentic data reuse</p>
+  <h1>Agents that stop paying for the same work twice</h1>
+  <p class="byline">By Parameshwaran Iyer · Updated 29 Aug 2026</p>
+
+  <div class="answer">
+    <p><strong>Agents that recompute everything on every request are the default, and are
+    ruinously wasteful.</strong> Persisting what was fetched and checking coverage before
+    fetching again took repeat runs to zero re-fetch, with gap-only retrieval when the ask
+    widened.</p>
+  </div>
+
+  <h2>Context</h2>
+  <p>A productised decision-intelligence platform where specialised agents answer
+  economic questions over external data — trade, geospatial and fiscal.</p>
+
+  <h2>Business problem</h2>
+  <p>Every agent invocation fetched from source, so asking a similar question twice cost
+  twice. Worse, widening a question — one more year, one more region — re-fetched
+  everything already held. Cost and latency both scaled with usage rather than with new
+  information.</p>
+
+  <h2>My role</h2>
+  <p>Architecture and delivery of the reuse layer: I authored the governing architecture
+  decision records, built the lakehouse and the application read path, and took the work
+  through review gates.</p>
+
+  <h2>Architecture</h2>
+  <p>Two match modes, which is the core insight:</p>
+  <ul>
+    <li><strong>Identity</strong> — the same request resolves to the same stored answer.</li>
+    <li><strong>Coverage</strong> — a wider request that contains what is already stored
+    reuses the overlap and fetches only the remainder.</li>
+  </ul>
+  
+  <figure class="diagram">
+    <svg viewBox="0 0 720 250" role="img" xmlns="http://www.w3.org/2000/svg"
+         aria-label="A request is canonicalised, then coverage is checked. Full coverage serves from storage with no fetch. Partial coverage fetches only the missing slice and accumulates it. No coverage fetches everything and stores it. Both fetch paths write back, so the next identical request is served from storage.">
+      <defs>
+        <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+          <path d="M0,0 L9,4.5 L0,9 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <g class="d-box">
+        <rect x="8" y="100" width="132" height="50" rx="8"/>
+        <rect x="188" y="100" width="132" height="50" rx="8"/>
+        <rect x="392" y="14"  width="150" height="46" rx="8"/>
+        <rect x="392" y="102" width="150" height="46" rx="8"/>
+        <rect x="392" y="190" width="150" height="46" rx="8"/>
+        <rect x="590" y="102" width="120" height="46" rx="8"/>
+      </g>
+      <g class="d-text">
+        <text x="74"  y="130">canonicalise</text>
+        <text x="254" y="123">check</text>
+        <text x="254" y="139">coverage</text>
+        <text x="467" y="42">FULL — serve, no fetch</text>
+        <text x="467" y="130">PARTIAL — fetch gap</text>
+        <text x="467" y="218">NONE — fetch all</text>
+        <text x="650" y="130">store</text>
+      </g>
+      <g class="d-line" marker-end="url(#a)">
+        <path d="M140,125 H182"/>
+        <path d="M320,118 H386 M320,118 V37 H386"/>
+        <path d="M320,125 H386"/>
+        <path d="M320,132 H386 M320,132 V213 H386"/>
+        <path d="M542,125 H584"/>
+        <path d="M542,213 H566 V150"/>
+      </g>
+      <g class="d-note"><text x="650" y="166">writes back</text></g>
+    </svg>
+    <figcaption>Coverage is derived from what is stored, not tracked separately —
+    otherwise the tracker and the truth drift apart.</figcaption>
+  </figure>
+
+  <p>Coverage is derived from the stored rows through views, rather than maintained in a
+  separate table. A separate tracker is a second source of truth, and the two drift.</p>
+
+  <h2>Key decisions</h2>
+  <h3>Content-addressed identity, computed identically in two places</h3>
+  <p>The application and the pipeline both compute the same identity hash over the same
+  canonical form. If they disagree, reuse silently stops working, so identical computation
+  is a requirement rather than a convention.</p>
+  <h3>Prompt and model tier are part of identity</h3>
+  <p>For agents whose output depends on a prompt, the composed prompt content, the trust
+  boundary and the model tier all enter the identity — keyed on content, not on a registry
+  version. A registry toggle must not reset reuse, and a boundary change must not be
+  served as identical.</p>
+  <h3>Whole-envelope caching where the unit of value is the document</h3>
+  <p>Some agents produce an answer document rather than rows. For those, caching the
+  envelope means a repeat serves full fidelity with no recomputation — including for an
+  expensive economic model that would otherwise re-solve.</p>
+  <h3>Owner scope in the identity and the primary key</h3>
+  <p>Reuse keyed purely on data content means two customers running the same scenario
+  collide on the same row. Folding an owner scope into both the hash and the key makes
+  isolation structural rather than a filter someone might forget. Genuinely global
+  reference data stays shared and byte-identical.</p>
+
+  <h2>Tradeoffs</h2>
+  <table>
+    <thead><tr><th>Decision</th><th>Bought</th><th>Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Coverage derived from stored data</td><td>One source of truth</td><td>Coverage queries are more expensive than reading a tracker</td></tr>
+      <tr><td>Content-addressed identity</td><td>Reuse survives config changes</td><td>Two implementations must agree byte-for-byte</td></tr>
+      <tr><td>Owner scope in the primary key</td><td>Cross-tenant collision becomes impossible</td><td>A migration, and legacy rows need a grandfathering rule</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Outcome</h2>
+  <p>Reuse proven at formal gate review for two agent families: a repeat run performed
+  zero re-fetch, and widening a request fetched only the new slice. The isolation model
+  was reviewed and accepted for enterprise rollout.</p>
+
+  <h2>Lessons</h2>
+  <ul>
+    <li><strong>Decide tenant isolation before the second customer.</strong> Retrofitting
+    an owner scope into a primary key is a migration; designing it in is a column.</li>
+    <li><strong>Two implementations of one hash will drift</strong> unless a parity test
+    holds them together.</li>
+    <li><strong>Reuse is a platform property you design in</strong>, and it is directly
+    measurable — which makes it one of the few architecture arguments you can settle with
+    a number.</li>
+  </ul>
+
+  <div class="related">
+    <h2>Related</h2>
+    <ul>
+      <li><a href="../../agentic-ai/">Agentic AI</a> — the general patterns behind this build.</li>
+      <li><a href="../../enterprise-ai-architecture/">Enterprise AI Architecture</a> — the governed foundation underneath.</li>
+      <li><a href="../../">Back to the portfolio</a> — enterprise outcomes, platforms shipped and the builds behind them.</li>
+    </ul>
+  </div>
+  <p style="margin-top:36px"><strong>Building an enterprise AI or GenAI platform?</strong>
+  <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a> ·
+  <a href="https://www.linkedin.com/in/parameshwaran-iyer-790b2131/" target="_blank" rel="noopener">LinkedIn</a></p>
+</article>
+</main>
+</div>
+<footer class="wrap">
+  <p>Written from first-hand enterprise delivery. Client names and confidential
+  architecture details are deliberately omitted.</p>
+</footer>
+</body>
+</html>

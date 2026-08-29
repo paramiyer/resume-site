@@ -76,7 +76,10 @@ jobs:
           cp index.html 404.html robots.txt sitemap.xml site.webmanifest styles.css \
              favicon.svg apple-touch-icon.png og-image.png ParamProfile.png _site/
           cp -r data scripts _site/
-          for d in enterprise-ai-architecture enterprise-rag agentic-ai about; do
+          for d in enterprise-ai-architecture enterprise-rag agentic-ai about \
+                   case-studies case-studies/enterprise-signal-intelligence \
+                   case-studies/agentic-data-reuse case-studies/geospatial-site-suitability \
+                   case-studies/mcp-product; do
             mkdir -p "_site/$d" && cp "$d/index.html" "_site/$d/"
           done
 

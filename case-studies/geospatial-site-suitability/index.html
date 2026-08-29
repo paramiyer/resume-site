@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Continental-Scale Site Suitability Scoring | Parameshwaran Iyer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A site-suitability platform for US AI datacenters at H3 resolution 7 — about 1.5 million hexagons, a dozen normalised infrastructure layers, and weighted scoring recomputed as the user moves the sliders.">
+<link rel="canonical" href="https://paramiyer.github.io/resume-site/case-studies/geospatial-site-suitability/">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../styles.css">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Parameshwaran Iyer">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://paramiyer.github.io/resume-site/case-studies/geospatial-site-suitability/">
+<meta property="og:title" content="Continental-Scale Site Suitability Scoring">
+<meta property="og:description" content="A site-suitability platform for US AI datacenters at H3 resolution 7 — about 1.5 million hexagons, a dozen normalised infrastructure layers, and weighted scoring recomputed as the user moves the sliders.">
+<meta property="og:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Continental-Scale Site Suitability Scoring">
+<meta name="twitter:description" content="A site-suitability platform for US AI datacenters at H3 resolution 7 — about 1.5 million hexagons, a dozen normalised infrastructure layers, and weighted scoring recomputed as the user moves the sliders.">
+<meta name="twitter:image" content="https://paramiyer.github.io/resume-site/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://paramiyer.github.io/resume-site/case-studies/geospatial-site-suitability/#article",
+      "headline": "Continental-Scale Site Suitability Scoring",
+      "description": "A site-suitability platform for US AI datacenters at H3 resolution 7 — about 1.5 million hexagons, a dozen normalised infrastructure layers, and weighted scoring recomputed as the user moves the sliders.",
+      "url": "https://paramiyer.github.io/resume-site/case-studies/geospatial-site-suitability/",
+      "inLanguage": "en",
+      "datePublished": "2026-08-29",
+      "dateModified": "29 Aug 2026",
+      "author": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "publisher": {
+        "@id": "https://paramiyer.github.io/resume-site/#person"
+      },
+      "mainEntityOfPage": "https://paramiyer.github.io/resume-site/case-studies/geospatial-site-suitability/",
+      "about": [
+        "Geospatial Analysis",
+        "Data Architecture",
+        "AI Platforms"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://paramiyer.github.io/resume-site/case-studies/geospatial-site-suitability/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://paramiyer.github.io/resume-site/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Case Studies",
+          "item": "https://paramiyer.github.io/resume-site/case-studies/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Geospatial site suitability",
+          "item": "https://paramiyer.github.io/resume-site/case-studies/geospatial-site-suitability/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href="../../">Parameshwaran Iyer</a>
+  <div class="nav-links">
+    <a href="../../">Home</a>
+    <a href="../../enterprise-ai-architecture/">Enterprise AI Architecture</a>
+    <a href="../../enterprise-rag/">Production RAG</a>
+    <a href="../../agentic-ai/">Agentic AI</a>
+    <a href="../../case-studies/">Case Studies</a>
+    <a href="../../about/">About</a>
+  </div>
+</nav>
+<div class="wrap">
+<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="../../">Home</a> · <a href="../../case-studies/">Case Studies</a> · Geospatial site suitability</p>
+  <h1>Scoring 29.7 million rows of the United States, live</h1>
+  <p class="byline">By Parameshwaran Iyer · Updated 29 Aug 2026</p>
+
+  <div class="answer">
+    <p><strong>Where should the next AI datacenter go?</strong> The answer depends on
+    power, fibre, water, land, workforce, hazard and politics — and on how much each
+    matters to you. This platform scores the continental United States at H3 resolution 7,
+    about 1.5 million hexagons, and lets the weighting be changed live.</p>
+  </div>
+
+  <h2>Context</h2>
+  <p>My own project, so described in full. Roughly 5.16 km² per cell — about 1,275 acres,
+  or one campus.</p>
+
+  <h2>Problem</h2>
+  <p>Site selection at national scale is a multi-criteria problem where the criteria
+  conflict and the weights are contested. Published rankings bake in one opinion. The
+  useful tool lets the argument happen on the map.</p>
+
+  <h2>Architecture</h2>
+  <ul>
+    <li><strong>Ingestion</strong> — per-layer crawlers and loaders, bronze through silver,
+    each layer normalised to a common 0–1 scale so weights mean the same thing everywhere.</li>
+    <li><strong>Serving</strong> — materialised views over roughly 29.7 million rows, with
+    the weighted sum computed per request.</li>
+    <li><strong>Front end</strong> — a map with live weight sliders and a viewport-bounded
+    query guard.</li>
+  </ul>
+
+  <h2>Key decisions</h2>
+  <h3>Normalise every layer to 0–1, and never show un-normalised internals</h3>
+  <p>Weights are only comparable if the things being weighted are. This is enforced as a
+  standing rule rather than a per-layer judgement.</p>
+  <h3>Absence semantics decided per layer</h3>
+  <p>Every layer must answer whether a missing row means null or zero. Null drops the
+  layer from the denominator and excuses the cell; zero-fill makes it dead weight. Getting
+  this wrong is silent and changes every score.</p>
+  <h3>Quality caps that a preference cannot lift</h3>
+  <p>Some layers are capped because the underlying data is weak, not because the topic is
+  unimportant. A user preference can move a weight within the cap but cannot exceed it,
+  so poor data cannot be promoted by enthusiasm.</p>
+  <h3>Pinned colour domain</h3>
+  <p>The palette breakpoints are calibrated against the score distribution and pinned.
+  Making them dynamic would mean the same cell changes colour as the dataset grows.</p>
+
+  <h2>Scale and delivery</h2>
+  <p>Around 1.5 million cells at resolution 7, about 29.7 million rows. CI runs backend
+  lint and tests, and separately applies every migration against a clean database — the
+  cheapest guard against a migration that only works on a developer's laptop.</p>
+
+  <h2>Lessons</h2>
+  <ul>
+    <li><strong>Rate limits are an architecture constraint.</strong> One layer was first
+    written to sample point by point, which meant thousands of requests against a free
+    public service and a crawler that ground to a halt. Concurrency and retries both made
+    it worse. The fix was a different access pattern, not more parallelism.</li>
+    <li><strong>Never tune toward incumbent rankings.</strong> Reproducing the existing
+    datacenter map would be the one failure this tool could not survive — it would
+    validate the status quo rather than inform a decision.</li>
+    <li><strong>A proxy that is convenient is not a proxy that is correct.</strong> Land
+    cost sourced from residential property values prices the wrong thing, and diverges
+    most exactly where campuses actually get built.</li>
+  </ul>
+
+  <div class="related">
+    <h2>Related</h2>
+    <ul>
+      <li><a href="../../enterprise-ai-architecture/">Enterprise AI Architecture</a> — governed data foundations at scale.</li>
+      <li><a href="../../case-studies/mcp-product/">A product with its own MCP server</a> — the other build I own outright.</li>
+      <li><a href="../../">Back to the portfolio</a> — enterprise outcomes, platforms shipped and the builds behind them.</li>
+    </ul>
+  </div>
+  <p style="margin-top:36px"><strong>Building an enterprise AI or GenAI platform?</strong>
+  <a href="mailto:paramiyer@gmail.com">paramiyer@gmail.com</a> ·
+  <a href="https://www.linkedin.com/in/parameshwaran-iyer-790b2131/" target="_blank" rel="noopener">LinkedIn</a></p>
+</article>
+</main>
+</div>
+<footer class="wrap">
+  <p>Written from first-hand enterprise delivery. Client names and confidential
+  architecture details are deliberately omitted.</p>
+</footer>
+</body>
+</html>

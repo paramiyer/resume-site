@@ -13,7 +13,7 @@ inventory does not support.
 | 1 | Positioning & information architecture | **Complete** |
 | 2 | Technical SEO foundation | **Complete** |
 | 3 | AI-search / GEO content architecture | **Complete** |
-| 4 | Authority & case studies | Not started |
+| 4 | Authority & case studies | **Complete** |
 | 5 | LinkedIn + GitHub + entity alignment | Not started |
 | 6 | Measurement, indexing & content system | Not started |
 | 7 | Full QA, search validation & hiring-market test | Not started |
@@ -357,8 +357,99 @@ an explicit conclusion.
 **Phase 4 — Authority and case studies.** Should also add the contextual
 homepage → expertise links noted above.
 
+---
+
+## Phase 4 — Authority and case studies
+
+**Status:** complete.
+
+### Decisions made
+
+- **Four case studies plus an index**, ordered by enterprise weight rather than
+  recency. Prioritised per the brief: production GenAI, agentic platforms,
+  large-scale geospatial, MCP.
+- **Two tiers of disclosure.** Client engagements are anonymised to the smallest
+  true description ("a leading UAE bank", "a productised decision-intelligence
+  platform") and described at pattern level — the same level already published on
+  the expertise pages. **My own projects are described in full**, because they are
+  mine to describe. Verified: **zero client identifiers across all nine generated
+  pages.**
+- **Template sections included only where the fact is known.** Budgets, engagement
+  headcount and user numbers are omitted rather than invented — the brief's rule,
+  and the Phase 0 inventory has no evidence for them.
+- **One architecture diagram, not four.** The coverage-decision flow is genuinely
+  hard to convey in prose — three outcomes, two of which write back — so it is
+  drawn. Inline SVG, themed, horizontally scrollable, with a full `aria-label`
+  describing the flow for screen readers. Phase 0 flagged "no architecture
+  artefact" as a credibility gap; this closes part of it.
+- **Builder made depth-aware.** `upTo()` computes relative depth from the slug, so
+  nested routes resolve assets and siblings correctly and the site stays portable
+  to a different base path. Breadcrumbs gained an optional middle level.
+
+### Files created
+
+`content/case-studies.mjs` · `case-studies/` index · four case-study routes
+
+### Files changed
+
+- `scripts/build-pages.mjs` — depth-aware paths, three-level breadcrumbs, renders case studies
+- `scripts/build-stats.mjs` — `ROUTES` now 10; sitemap follows
+- `content/pages.mjs` — Case Studies added to nav
+- `index.html` — **contextual deep links** from Problems I Solve and the capability
+  matrix into the expertise pages and case studies, closing the Phase 3 gap where
+  the homepage only linked via nav
+- `styles.css` — diagram styles
+- `.github/workflows/static.yml` — stages the nested routes
+
+### Case studies
+
+| Route | Disclosure | Priority evidence |
+|---|---|---|
+| `enterprise-signal-intelligence` | anonymised client | production GenAI, RAG, governance, human sign-off |
+| `agentic-data-reuse` | anonymised client | agentic platform, reuse, tenant isolation, **diagram** |
+| `geospatial-site-suitability` | own project, full detail | H3 at continental scale, ~29.7M rows, CI discipline |
+| `mcp-product` | own project, full detail | MCP, database-generated API, RLS authorisation |
+
+### Verification
+
+| Check | Result |
+|---|---|
+| Routes | all 10 return 200 |
+| Nested resolution | `../../styles.css`, `../../favicon.svg`, sibling and grandparent links all 200 |
+| Breadcrumbs | 3 levels on nested pages, correct URLs |
+| Confidentiality | zero client identifiers across all generated pages |
+| Diagram a11y | full descriptive `aria-label`; scrolls rather than squashing |
+| Idempotence | case studies byte-identical on re-run |
+| Sitemap | 10 URLs, generated |
+
+### Deliberate omissions
+
+- **No fabricated scale.** User counts, transaction volumes and revenue figures do
+  not appear, because no evidence supports them.
+- **The MCP case study states its own weakness** — thin test coverage against 20
+  RLS policies — rather than letting the build imply rigour it has not earned.
+  Honest, and more credible to a reviewing architect than silence.
+
+### Unresolved questions
+
+1. Carried: **resume still contradicts the site** on three job titles.
+2. Carried: two dead product links — replacements or leave unlinked?
+3. **Should the two client case studies name the sectors more precisely?**
+   "A leading UAE bank" is safe. Anything sharper needs the client's consent.
+4. **No `/insights` route yet** — correct at this size; needed once the Phase 3
+   content backlog is half-written.
+
+### Manual actions required
+
+- Decide (1)–(3). Nothing blocks Phase 5.
+
+### Next phase
+
+**Phase 5 — LinkedIn, GitHub and entity alignment.** Portfolio-side only; no
+external account will be modified.
+
 ### Recommended next command
 
 ```
-Proceed with Phase 4
+Proceed with Phase 5
 ```

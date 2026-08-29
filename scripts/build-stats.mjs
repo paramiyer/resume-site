@@ -162,7 +162,12 @@ const ACTIVITY_DAYS = 7;
 const SITE = 'https://paramiyer.github.io/resume-site/';
 
 /* Indexable routes. Phase 3 adds to this list; the sitemap follows from it. */
-const ROUTES = ['', 'enterprise-ai-architecture/', 'enterprise-rag/', 'agentic-ai/', 'about/'];
+const ROUTES = [
+  '', 'enterprise-ai-architecture/', 'enterprise-rag/', 'agentic-ai/', 'about/',
+  'case-studies/', 'case-studies/enterprise-signal-intelligence/',
+  'case-studies/agentic-data-reuse/', 'case-studies/geospatial-site-suitability/',
+  'case-studies/mcp-product/',
+];
 
 async function gh(path) {
   const res = await fetch(`https://api.github.com${path}`, {

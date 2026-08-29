@@ -281,3 +281,15 @@ footer{
   font-size:22px; text-transform:none; letter-spacing:-.01em;
   color:var(--text); border-bottom:0; padding-bottom:0; margin:40px 0 12px;
 }
+
+/* ── architecture diagrams ──────────────────────────── */
+.diagram{
+  margin:26px 0; padding:20px 18px; background:var(--panel);
+  border:1px solid var(--line); border-radius:var(--radius); overflow-x:auto;
+}
+.diagram svg{width:100%; min-width:560px; height:auto; color:var(--muted)}
+.diagram figcaption{margin-top:14px; font-size:13px; color:var(--dim); line-height:1.55}
+.d-box rect{fill:var(--panel-2); stroke:var(--line); stroke-width:1.5}
+.d-text text{fill:var(--text); font-size:13px; font-family:inherit; text-anchor:middle}
+.d-note text{fill:var(--dim); font-size:11.5px; font-family:inherit; text-anchor:middle}
+.d-line path{stroke:var(--muted); stroke-width:1.5; fill:none}
