@@ -120,7 +120,7 @@ ${nav(page.slug)}
 <article class="article">
   <p class="crumbs"><a href="${up}">Home</a> · ${page.parent ? `<a href="${up}${page.parent.slug}/">${esc(page.parent.label)}</a> · ` : ''}${esc(page.crumb)}</p>
   <h1>${esc(page.h1)}</h1>
-  <p class="byline">By Parameshwaran Iyer · Updated ${updated}</p>
+  <p class="byline">By <a href="${up}about/">Parameshwaran Iyer</a>, Principal AI Architect &amp; Enterprise AI Leader · Updated ${updated}</p>
 ${page.body}
   <div class="related">
     <h2>Related</h2>

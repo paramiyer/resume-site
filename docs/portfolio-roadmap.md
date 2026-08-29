@@ -14,7 +14,7 @@ inventory does not support.
 | 2 | Technical SEO foundation | **Complete** |
 | 3 | AI-search / GEO content architecture | **Complete** |
 | 4 | Authority & case studies | **Complete** |
-| 5 | LinkedIn + GitHub + entity alignment | Not started |
+| 5 | LinkedIn + GitHub + entity alignment | **Complete** |
 | 6 | Measurement, indexing & content system | Not started |
 | 7 | Full QA, search validation & hiring-market test | Not started |
 
@@ -448,8 +448,77 @@ homepage → expertise links noted above.
 **Phase 5 — LinkedIn, GitHub and entity alignment.** Portfolio-side only; no
 external account will be modified.
 
+---
+
+## Phase 5 — LinkedIn, GitHub and entity alignment
+
+**Status:** complete. No external account was modified.
+
+### Decisions made
+
+- **The `jobTitle` rule travels.** The portfolio asserts no `jobTitle`; LinkedIn's
+  title fields must likewise show roles actually held, with the positioning confined
+  to headline and About, which are capability claims rather than employment records.
+- **Semantic consistency over identical strings** — one recognisable identity per
+  surface, worded to each surface's conventions.
+- **Skills recommendation deliberately demotes Python, ML, deep learning and CV.**
+  All true, but they pull classification toward Data Scientist, which is the level
+  down the whole programme is correcting.
+
+### Files created
+
+`docs/linkedin-strategy.md` — 3 headline options, About text, experience-wording
+rules, 5 Featured assets, ranked skills, 10 mapped post concepts
+`docs/entity-strategy.md` — canonical identity, surface-by-surface state, three
+named entity risks, GitHub profile and README recommendations, priority actions
+
+### Portfolio-side change
+
+- `scripts/build-pages.mjs` — **the byline now carries the positioning**: "By
+  Parameshwaran Iyer, Principal AI Architect & Enterprise AI Leader". Previously a
+  page retrieved standalone by an AI system had an author with no seniority signal.
+  Identity now appears on **9/9 generated pages**, and the byline links to `/about/`.
+
+### Verification
+
+| Check | Result |
+|---|---|
+| Author entity | a **single** `@id` across every page — one Person, not several |
+| `jobTitle` assertion | absent everywhere — rule holds |
+| Identity on generated pages | 9/9 after the byline fix (was 2/9) |
+| Generators | exit 0, idempotent |
+
+### Entity risks recorded
+
+1. **GitHub is an empty node.** Name, bio, company, location, website all unset; no
+   profile README; 0 followers; visible repos are mostly notebooks while the four
+   strongest builds are private. The portfolio asserts `sameAs` → GitHub, so the
+   site's strongest outbound signal currently points at its weakest evidence.
+   Setting the **Website** field alone makes the link bidirectional, which is the
+   largest single entity gain available.
+2. **Three surfaces disagree on job titles** (ZainTECH, ADQ/Next50, Bosch).
+   Carried since Phase 1. LinkedIn is the third surface and decides which of the two
+   published documents looks like the error. **Should not reach Phase 7 open.**
+3. **Name form** varies between "Parameshwaran S Iyer" and "Parameshwaran Iyer".
+   Handled via `name` / `alternateName`; keep the pattern rather than eliminating one.
+
+### Manual actions required — priority order
+
+1. GitHub profile fields, especially **Website** *(≈5 minutes, largest gain)*
+2. Resolve the title conflict across resume and LinkedIn
+3. LinkedIn headline and About
+4. GitHub profile README — new repo named `paramiyer`
+5. Pinned repositories — six named in `entity-strategy.md`
+6. LinkedIn Featured — five assets
+
+### Next phase
+
+**Phase 6 — Measurement, indexing and content system.** Note the open question
+from Phase 2: the site has no analytics by design ("no trackers" in the footer), so
+Phase 6 must decide whether Search Console and Bing query data alone are sufficient.
+
 ### Recommended next command
 
 ```
-Proceed with Phase 5
+Proceed with Phase 6
 ```
