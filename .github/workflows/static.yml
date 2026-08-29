@@ -65,10 +65,20 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      # Stage only what the site serves. Previously this uploaded path '.', which
+      # published every file in the repo — including docs/, where the internal
+      # audit and roadmap live. scripts/ and data/ stay published deliberately:
+      # they are the automation the page credits, and are safe to read.
+      - name: Stage site
+        run: |
+          mkdir -p _site
+          cp index.html ParamProfile.png _site/
+          cp -r data scripts _site/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment

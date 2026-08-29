@@ -216,11 +216,13 @@ const PRODUCTS = [
   { repo: 'smith', tag: 'own product' },
   { repo: 'ai-center-locator', tag: 'own product' },
   {
-    title: 'Ijaba', url: 'https://azuremarketplace.microsoft.com/en-us/marketplace/apps/zaintechsolutionsfz-llc1692862657242.ijaba?tab=overview',
+    title: 'Ijaba', // marketplace listing 404s as of 2026-08-29 — link removed
+
     blurb: 'An AI-driven platform for industrial IoT analytics and insights, listed on the Azure Marketplace.',
   },
   {
-    title: 'Experience Based Repair', url: 'https://www.boschaftermarket.com/gb/en/news/tips-and-technology/esitronic-lesson-4/',
+    title: 'Experience Based Repair', // Bosch page 404s as of 2026-08-29 — link removed
+
     blurb: "Bosch's intelligent repair recommendation system, built from historical and expert repair knowledge.",
   },
   {
@@ -246,14 +248,15 @@ function renderProducts() {
   return `<ul class="plain">\n${items}\n    </ul>`;
 }
 
+/* Executive proof bar. Deliberately career and delivery signals only — commit
+ * counts, repo counts and citations are evidence of a different kind and live
+ * further down the page, where they support rather than lead. */
 function renderMetrics({ projectCount, languageCount, capabilityCount, citationTotal }) {
   const tiles = [
-    { v: '20+',            l: 'Years leading AI &amp; data',    src: 'career' },
-    { v: 'AED 90M+',       l: 'Enterprise value delivered',     src: 'career' },
-    { v: PRODUCTS.length,  l: 'Products shipped to production', src: 'product' },
-    { v: projectCount,     l: 'Open-source AI/ML projects',     src: 'live' },
-    { v: capabilityCount,  l: 'Capability areas evidenced',     src: 'live' },
-    { v: citationTotal,    l: 'Indexed research citations',     src: 'live' },
+    { v: '20+',           l: 'Years leading AI &amp; data',        src: 'career' },
+    { v: 'AED 90M+',      l: 'Enterprise value delivered',         src: 'career' },
+    { v: PRODUCTS.length, l: 'Products shipped to production',     src: 'product' },
+    { v: '40',            l: 'AI engineers in the function I built', src: 'career' },
   ];
   return `<div class="metrics">
 ${tiles
