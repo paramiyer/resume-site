@@ -48,18 +48,11 @@ const CATALOGUE = {
     caps: ['agents', 'llm'],
     flagship: true,
   },
-  'AI_Car_Diagnosis_Assistant': {
-    title: 'AI Car Diagnosis & Repair Assistant',
-    blurb:
-      'From user-described symptoms, runs a constrained-domain search and returns grounded inferences from an LLM. Streamlit front end.',
-    caps: ['llm'],
-  },
   'Time_series_LSTM_Autoencoder': {
     title: 'LSTM Autoencoder for Time Series',
     blurb:
       'Deep learning for synthetic data generation, anomaly detection and missing-value imputation — applied to temperature and financial series.',
     caps: ['timeseries'],
-    flagship: true,
   },
   'Pharma_Demand-Forecasting-Optimization-Pipeline': {
     title: 'Supply Chain Engagement Optimisation',
@@ -68,22 +61,6 @@ const CATALOGUE = {
     caps: ['timeseries', 'optimisation'],
     flagship: true,
   },
-  'Semantic_Segmentation': {
-    title: 'Semantic Segmentation',
-    blurb: 'Deep-learning semantic segmentation for pixel-level image analysis.',
-    caps: ['vision'],
-  },
-  'Ride-Hailing': {
-    title: 'Ride-Hailing Customer Satisfaction',
-    blurb:
-      'Analyses ride-hailing marketplace data to extract satisfaction drivers and improve service efficiency.',
-    caps: ['optimisation'],
-  },
-  'Linkedin-Job-Scrapper': {
-    title: 'LinkedIn Job Scraper',
-    blurb: 'Collects job postings for labour-market and skills-demand analysis.',
-    caps: ['dataeng'],
-  },
 
   /* Private repos. Not visible to the API and not linkable — rendered as cards
    * without a URL so the page never ships a 404. Facts here are static. */
@@ -91,7 +68,7 @@ const CATALOGUE = {
     title: 'myBob — Local-First Analytics Dashboard',
     blurb:
       'Personal analytics and insight dashboard over an MCP server, running entirely locally — no central hosting. TypeScript monorepo with a browser SPA and its own API layer.',
-    caps: ['tooling', 'dataeng'],
+    caps: ['tooling'],
     private: true, language: 'TypeScript', since: '2026',
     flagship: true,
   },
@@ -110,6 +87,22 @@ const CATALOGUE = {
     private: true, language: 'Python', since: '2026',
     flagship: true,
   },
+  'ltx-reel': {
+    title: 'ltx-reel — Keyframe-Continuous Video Generation',
+    blurb:
+      'Turns an ordered folder of images plus one prompt into a single continuous video, rendered locally on Apple Silicon with LTX-Video. Consecutive images act as keyframes so the motion flows through them rather than cutting between independently animated clips. CLI with a model-free planning mode and a stand-in renderer for end-to-end wiring tests.',
+    caps: ['vision', 'llm'],
+    private: true, language: 'Python', since: '2026',
+    flagship: true,
+  },
+  'astro': {
+    title: 'Multi-Hop RAG Application with Row-Level Security',
+    blurb:
+      'A privacy-first reading and Q&A app built on two-pass multi-hop retrieval over stored context, with every answer citing its sources. Postgres with pgvector for embeddings, row-level security so a user can only ever retrieve their own context, and edge functions for question generation and chat. Provider-agnostic: runs against any OpenAI-compatible endpoint, including a local model.',
+    caps: ['llm', 'fullstack'],
+    private: true, language: 'TypeScript', since: '2026',
+    flagship: true,
+  },
   'smith': {
     title: 'smith — Ticketing Product with an MCP Server',
     blurb:
@@ -126,12 +119,11 @@ const CAPABILITIES = [
   { id: 'agents',      name: 'Multi-Agent Orchestration',  proves: 'Decomposing work across specialised agents with an orchestration layer' },
   { id: 'timeseries',  name: 'Time Series & Forecasting',  proves: 'Sequence models for forecasting, anomaly detection and imputation' },
   { id: 'optimisation',name: 'Optimisation & OR',          proves: 'Constrained allocation under real business limits, not just prediction' },
-  { id: 'vision',      name: 'Computer Vision',            proves: 'Pixel-level scene understanding with deep networks' },
+  { id: 'vision',      name: 'Computer Vision & Generative Media', proves: 'Diffusion video generation run locally on GPU, with keyframe-conditioned continuity' },
   { id: 'governance',  name: 'Data Governance & PII',      proves: 'Automated classification of sensitive data estates at audit scale' },
   { id: 'geo',         name: 'Geospatial & Location Intelligence', proves: 'Continental-scale H3 tiling and weighted multi-criteria site scoring' },
   { id: 'fullstack',   name: 'Full-Stack Product Engineering', proves: 'Schema to deployed UI: TypeScript monorepos, Postgres, CI/CD with preview deploys' },
   { id: 'tooling',     name: 'Agent Tooling & MCP', proves: 'MCP servers built so products can be driven directly from an AI client' },
-  { id: 'dataeng',     name: 'Data Acquisition',           proves: 'Building the collection layer that feeds the models' },
 ];
 
 /* Language swatches — kept in step with the palette in index.html. */

@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-30T18:31:14.304Z",
-  "refreshed_label": "30 Aug 2026",
-  "project_count": 12,
-  "public_project_count": 8,
-  "capability_count": 10,
+  "generated_at": "2026-08-30T20:42:45.699Z",
+  "refreshed_label": "31 Aug 2026",
+  "project_count": 10,
+  "public_project_count": 4,
+  "capability_count": 9,
   "languages": {
-    "Python": 4,
-    "Jupyter Notebook": 5,
-    "TypeScript": 2,
+    "Python": 3,
+    "Jupyter Notebook": 3,
+    "TypeScript": 3,
     "JavaScript": 1
   },
   "citations": {
@@ -62,15 +62,6 @@
       ]
     },
     {
-      "name": "Time_series_LSTM_Autoencoder",
-      "url": "https://github.com/paramiyer/Time_series_LSTM_Autoencoder",
-      "language": "Jupyter Notebook",
-      "pushed_at": "2025-05-13T14:26:06Z",
-      "caps": [
-        "timeseries"
-      ]
-    },
-    {
       "name": "Pharma_Demand-Forecasting-Optimization-Pipeline",
       "url": "https://github.com/paramiyer/Pharma_Demand-Forecasting-Optimization-Pipeline",
       "language": "Jupyter Notebook",
@@ -86,8 +77,7 @@
       "language": "TypeScript",
       "pushed_at": null,
       "caps": [
-        "tooling",
-        "dataeng"
+        "tooling"
       ]
     },
     {
@@ -97,6 +87,26 @@
       "pushed_at": null,
       "caps": [
         "geo",
+        "fullstack"
+      ]
+    },
+    {
+      "name": "ltx-reel",
+      "url": null,
+      "language": "Python",
+      "pushed_at": null,
+      "caps": [
+        "vision",
+        "llm"
+      ]
+    },
+    {
+      "name": "astro",
+      "url": null,
+      "language": "TypeScript",
+      "pushed_at": null,
+      "caps": [
+        "llm",
         "fullstack"
       ]
     },
@@ -111,39 +121,12 @@
       ]
     },
     {
-      "name": "AI_Car_Diagnosis_Assistant",
-      "url": "https://github.com/paramiyer/AI_Car_Diagnosis_Assistant",
-      "language": "Python",
-      "pushed_at": "2025-05-19T16:26:13Z",
-      "caps": [
-        "llm"
-      ]
-    },
-    {
-      "name": "Ride-Hailing",
-      "url": "https://github.com/paramiyer/Ride-Hailing",
+      "name": "Time_series_LSTM_Autoencoder",
+      "url": "https://github.com/paramiyer/Time_series_LSTM_Autoencoder",
       "language": "Jupyter Notebook",
-      "pushed_at": "2025-05-13T13:19:58Z",
+      "pushed_at": "2025-05-13T14:26:06Z",
       "caps": [
-        "optimisation"
-      ]
-    },
-    {
-      "name": "Linkedin-Job-Scrapper",
-      "url": "https://github.com/paramiyer/Linkedin-Job-Scrapper",
-      "language": "Python",
-      "pushed_at": "2025-05-13T12:53:16Z",
-      "caps": [
-        "dataeng"
-      ]
-    },
-    {
-      "name": "Semantic_Segmentation",
-      "url": "https://github.com/paramiyer/Semantic_Segmentation",
-      "language": "Jupyter Notebook",
-      "pushed_at": "2025-05-13T11:39:06Z",
-      "caps": [
-        "vision"
+        "timeseries"
       ]
     },
     {
