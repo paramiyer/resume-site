@@ -544,7 +544,11 @@ function renderJsonLd(refreshedIso) {
       'https://www.linkedin.com/in/parameshwaran-iyer-790b2131/',
       'https://github.com/paramiyer',
       'https://scholar.google.com/citations?user=4xdbJC8AAAAJ',
+      /* Both OpenAlex author records. The profile is split across a General Motors
+       * one and a Robert Bosch one; asserting both as sameAs tells a consumer they
+       * are the same person, which is the disambiguation this graph exists for. */
       'https://openalex.org/A5045119494',
+      'https://openalex.org/A5080782322',
     ],
   };
 
