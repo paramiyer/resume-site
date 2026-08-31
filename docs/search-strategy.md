@@ -22,10 +22,52 @@ Three facts shape everything below, and pretending otherwise would waste your ti
    systems — recruiters, CIOs, AI retrieval engines — find and correctly classify a
    senior enterprise AI architect. A hundred right visitors beats ten thousand wrong ones.
 
-Realistically the site earns its keep in this order: **AI retrieval → branded search
-→ a credible destination for LinkedIn traffic → long-tail technical queries →
-competitive commercial queries.** The last of those is a year-scale ambition, and
-only with a custom domain and sustained publishing.
+Realistically the site earns its keep in this order: **AI retrieval → a credible
+destination for LinkedIn traffic → long-tail technical queries → competitive
+commercial queries.** The last of those is a year-scale ambition, and only with
+sustained publishing.
+
+**Branded search was in that list and has been removed.** See below — it is not
+winnable, and planning around it would have wasted effort.
+
+### The name is contested — measured 2026-09-01
+
+Searching `parameshwaran iyer` on Google returns, above anything of Param's:
+
+- A **Wikipedia article and Knowledge Panel** for **Parameswaran Iyer** — note the
+  spelling, no `h` — a retired IAS officer, former CEO of NITI Aayog and World Bank
+  Executive Director. Google offers *"Did you mean: parameswaran iyer"*, meaning it
+  treats Param's spelling as a **misspelling of the public figure's**.
+- An AI Overview about that person.
+
+Adding qualifiers does not rescue it. `"Parameshwaran Iyer" AI architect UAE` returns
+*other* people with the same name: a Solutions Architect at EY in Atlanta, one in
+London, one at Pidilite, and a Salesforce Enterprise Technology Architect. The name is
+shared not just with a celebrity but with **several architects**.
+
+**Conclusion: do not optimise for the name.** A personal site will not outrank a
+Wikipedia-backed public figure, and it is the wrong target anyway — a recruiter who
+already has your name has already found you. The winnable queries are topical
+(`enterprise AI architecture`, `agentic AI patterns`, `RAG in regulated environments`),
+which is precisely what Cluster B exists for.
+
+**Two things do help, and both are cheap:**
+
+- A distinctive vanity URL (`/in/parameshwaraniyer`) as disambiguation signal.
+- The `sameAs` graph in the site's JSON-LD, which is how a machine tells these people
+  apart. Already built.
+
+### What ranks today
+
+The LinkedIn profile **ranks #2 for the name**, directly beneath Wikipedia, and Google
+renders the result title from the **headline**, not the HTML `<title>`:
+
+> Parameshwaran Iyer - AI/ML Delivery Leader · LinkedIn · 4K+ followers
+
+That is a correction to an earlier note in `linkedin-strategy.md` which assumed the
+title came from name + current employer. **The headline is the Google title.** It is
+the single highest-leverage string on any surface Param controls, and it currently
+reads "AI/ML Delivery Leader … Data Science Leader" — a level below the positioning.
 
 ---
 
@@ -182,7 +224,7 @@ Nothing here is fabricated. All of it needs you.
 
 ### Google Search Console
 
-1. Add property. **Use the URL-prefix property** `https://paramiyer.github.io/resume-site/` —
+1. Add property. **Use the URL-prefix property** `https://paramiyer.github.io/` —
    domain properties need DNS, which you do not control on `github.io`.
 2. Verify via **HTML tag**: add to the `<head>` of `index.html`, immediately after
    the `<meta name="description">` line.
@@ -191,7 +233,8 @@ Nothing here is fabricated. All of it needs you.
    ```
    *(The file-upload method also works: drop `google*.html` at the repo root and add
    it to the staging list in `.github/workflows/static.yml`.)*
-3. Submit `https://paramiyer.github.io/resume-site/sitemap.xml`.
+3. Submit `https://paramiyer.github.io/sitemap.xml`.  **Done 2026-09-01** — verified
+   by meta tag, sitemap submitted, and imported into Bing Webmaster Tools.
 4. Request indexing for the homepage and the three expertise pages.
 
 ### Bing Webmaster Tools
