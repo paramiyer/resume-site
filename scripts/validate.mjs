@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve, posix } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SITE = 'https://paramiyer.github.io/resume-site/';
+const SITE = 'https://paramiyer.github.io/';
 
 /* Names that must never appear on a public page. Employers are fine — they are
  * on the CV. Clients, client systems and ticket ids are not. */

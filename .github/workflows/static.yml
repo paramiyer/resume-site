@@ -77,6 +77,9 @@ jobs:
           cp index.html 404.html robots.txt sitemap.xml site.webmanifest styles.css \
              favicon.svg apple-touch-icon.png og-image.png ParamProfile.png _site/
           cp -r data scripts _site/
+          # Old project-path URL is on already-sent resumes and on LinkedIn.
+          # Kept as a client-side redirect: GitHub Pages cannot issue a 301.
+          mkdir -p _site/resume-site && cp resume-site/index.html _site/resume-site/
           for d in enterprise-ai-architecture enterprise-rag agentic-ai about \
                    case-studies case-studies/enterprise-signal-intelligence \
                    case-studies/agentic-data-reuse case-studies/geospatial-site-suitability \

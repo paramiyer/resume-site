@@ -132,7 +132,7 @@ const LANG_COLOUR = {
   TypeScript: '#3178c6', CSS: '#563d7c', Shell: '#89e051', R: '#198CE7', Dockerfile: '#384d54',
 };
 
-const EXCLUDE = new Set(['resume-site', 'pythonSamples']);
+const EXCLUDE = new Set(['paramiyer.github.io', 'pythonSamples']);
 
 /* OpenAlex author IDs. Param's record is split across two — a General Motors
  * one and a Robert Bosch one — so both are queried and merged. OpenAlex is CC0
@@ -151,7 +151,7 @@ const OPENALEX_MAILTO = 'paramiyer@gmail.com'; // polite-pool contact, already p
 const token = process.env.GH_PAT || process.env.GITHUB_TOKEN || '';
 const HAS_PAT = Boolean(process.env.GH_PAT);
 const ACTIVITY_DAYS = 7;
-const SITE = 'https://paramiyer.github.io/resume-site/';
+const SITE = 'https://paramiyer.github.io/';
 
 /* Indexable routes. Phase 3 adds to this list; the sitemap follows from it. */
 const ROUTES = [
@@ -165,7 +165,7 @@ async function gh(path) {
   const res = await fetch(`https://api.github.com${path}`, {
     headers: {
       Accept: 'application/vnd.github+json',
-      'User-Agent': 'resume-site-stats',
+      'User-Agent': 'paramiyer-site-stats',
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
@@ -644,7 +644,7 @@ async function main() {
   const oaUrl =
     `https://api.openalex.org/works?filter=author.id:${OPENALEX_AUTHORS.join('|')}` +
     `&per-page=100&select=publication_year,cited_by_count,counts_by_year&mailto=${OPENALEX_MAILTO}`;
-  const oaRes = await fetch(oaUrl, { headers: { 'User-Agent': `resume-site (${OPENALEX_MAILTO})` } });
+  const oaRes = await fetch(oaUrl, { headers: { 'User-Agent': `paramiyer.github.io (${OPENALEX_MAILTO})` } });
   if (!oaRes.ok) throw new Error(`OpenAlex ${oaRes.status} ${oaRes.statusText}`);
   const oa = await oaRes.json();
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://paramiyer.github.io/resume-site/sitemap.xml
+Sitemap: https://paramiyer.github.io/sitemap.xml

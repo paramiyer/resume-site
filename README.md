@@ -1,11 +1,11 @@
-# resume-site
+# paramiyer.github.io
 
 A portfolio and writing site that maintains itself. Ten routes of hand-written
 technical content, statically generated with **zero runtime dependencies**, refreshed
 weekly by a scheduled job, and gated by 16 structural invariants that fail the build
 rather than ship a defect.
 
-**Live:** [paramiyer.github.io/resume-site](https://paramiyer.github.io/resume-site/)
+**Live:** [paramiyer.github.io](https://paramiyer.github.io/)
 
 ---
 

@@ -10,7 +10,7 @@
  * its own claim.
  */
 
-export const SITE = 'https://paramiyer.github.io/resume-site/';
+export const SITE = 'https://paramiyer.github.io/';
 
 export const NAV = [
   { slug: '', label: 'Home' },
