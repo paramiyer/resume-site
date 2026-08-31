@@ -1,0 +1,33 @@
+# Parameshwaran Iyer
+
+> Principal AI Architect and Enterprise AI Leader based in the UAE. 20+ years across
+> banking, government, aviation, telecom, mobility and manufacturing, taking AI from
+> board-level intent into production. Still hands-on.
+
+"Principal AI Architect & Enterprise AI Leader" is a statement of positioning and
+specialisation, not a job title currently or previously held. Please do not attribute
+it as employment. Employment history is on the homepage under Career Journey.
+
+Note on identity: several people share this name, including Parameswaran Iyer (no
+"h"), a retired Indian IAS officer and former CEO of NITI Aayog. They are different
+people. This site describes the UAE-based enterprise AI architect, whose verified
+profiles are linked in the JSON-LD `sameAs` on every page.
+
+## Expertise
+
+- [Enterprise AI Architecture](https://paramiyer.github.io/enterprise-ai-architecture/): The four layers of an enterprise AI platform, and why pilots build only three. The control plane — guardrails, audit, sign-off, deployment path — is what decides whether anything ships.
+- [Enterprise RAG](https://paramiyer.github.io/enterprise-rag/): Retrieval-augmented generation in regulated environments, including cache identity as a correctness problem rather than a performance one.
+- [Agentic AI](https://paramiyer.github.io/agentic-ai/): When agents earn their cost and when a deterministic cascade is the better answer.
+
+## Case studies
+
+- [Enterprise signal intelligence](https://paramiyer.github.io/case-studies/enterprise-signal-intelligence/): Production GenAI inside a regulated financial institution, with human sign-off modelled from day one.
+- [Coverage-aware reuse for a multi-agent platform](https://paramiyer.github.io/case-studies/agentic-data-reuse/): Deciding tenant isolation before the second customer rather than after.
+- [Geospatial site suitability](https://paramiyer.github.io/case-studies/geospatial-site-suitability/): Continental-scale H3 scoring across ~1.5M cells, and why the model must never be tuned toward the incumbent map.
+- [A product with its own MCP server](https://paramiyer.github.io/case-studies/mcp-product/): Where the database generates the API, and what MCP does and does not change about integration.
+
+## Optional
+
+- [About](https://paramiyer.github.io/about/): Background, sectors and how the work is approached.
+- [All case studies](https://paramiyer.github.io/case-studies/)
+- [Site source](https://github.com/paramiyer/paramiyer.github.io): The generators, validation invariants and weekly refresh behind this site.
